@@ -1,0 +1,11 @@
+-- Create dummy data for testing and debugging
+DELETE FROM app_user WHERE app_user.id = 1;
+INSERT INTO app_user
+    (id, firebase_id, first_name, last_name, email, last_logged_in_date, last_logged_in_ip, created_at, updated_at, deleted_at, location_id, image_id)
+VALUES (1, 'testuser1', null, null, null, null, null, NOW(), null, null, null, null);
+
+DELETE FROM routine WHERE routine.id = 1;
+INSERT INTO routine
+(id, public_id, creator_id, image_id, name, description, rating, created_at, updated_at, deleted_at, num_times_copied, base_routine_id)
+VALUES
+    (1, 'testroutine1', 1, null, 'Zertovsky''s Routine', 'PPL with heavy emphasis on chest', 5.0, NOW(), null, null, 0, null);
