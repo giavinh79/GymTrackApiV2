@@ -1,38 +1,53 @@
 package com.gymtrack.api.feature.user.model;
 
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.sql.Timestamp;
 
 @Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
+    private String firebaseId;
+
+    @Column
+    private String firstName;
+
+    @Column
+    private String lastName;
+
+    @Column
+    private String email;
+
+    @Column
+    private String lastLoggedInIp;
+
+    @Column
+    private Timestamp lastLoggedInDate;
+
+    @Column
+    @CreatedDate
+    private Timestamp createdAt;
+
+    @Column
+    private Timestamp updatedAt;
+
+    @Column
+    private Timestamp deletedAt;
+
     @Transient
-    private Integer age;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    public int getAge() {
+        // @TODO - store birth dates and compute age via this logic
+        return 0;
+    };
 }

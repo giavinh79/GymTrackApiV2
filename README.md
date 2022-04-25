@@ -1,7 +1,5 @@
 # GymTrack Spring Boot REST API
 
----
-
 ## Description
 This is the second iteration of the API for the GymTrack application built with Java Spring Boot and PostgreSQL.
 Currently being built and not close to being production ready.
@@ -13,9 +11,14 @@ The API itself is deployed [here](https://todo.com) and documented [here](https:
 ## Running locally
 GymTrack is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). It uses PostgreSQL as its data store which can be run locally using [Docker](https://www.docker.com/) (see `docker-compose.yml` file). After Maven builds, run the server from your favourite IDE!
 
-The API will run locally at: http://localhost:8080/
+**API**
+- The API will run locally at: http://localhost:8080/
+  - Make sure to set environment variable `GOOGLE_APPLICATION_CREDENTIALS` in your run configuration pointing to the Firebase Private Key file
+  - Some routes are protected by Firebase Auth (you can grab the token by logging in to the client app and checking network or [alternatively](https://stackoverflow.com/questions/49934701/get-firebase-access-token-in-postman))
+- The API documentation (OpenAPI + Swagger) will run at: http://localhost:3030/swagger-ui.html
 
-The relational database will run locally at: http://localhost:5432/
+**DB**
+- The relational database will run locally at: http://localhost:5432/
 
 A useful GUI tool for PostgreSQL [pgAdmin](https://www.pgadmin.org/) will run locally at: http://localhost:5050/
 

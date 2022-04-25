@@ -39,6 +39,7 @@ CREATE TABLE app_user(
     deleted_at timestamptz,
     location_id int,
     image_id int,
+    is_super_admin boolean NOT NULL DEFAULT FALSE,
     FOREIGN KEY (location_id) REFERENCES location(id) ON DELETE SET NULL,
     FOREIGN KEY (image_id) REFERENCES image(id) ON DELETE SET NULL
 );
@@ -58,7 +59,7 @@ CREATE TABLE setting(
 CREATE TABLE app_user_setting(
     app_user_id int NOT NULL,
     setting_id int NOT NULL,
-    value boolean NOT NULL DEFAULT FALSE,
+    enabled boolean NOT NULL DEFAULT FALSE,
     FOREIGN KEY(app_user_id) REFERENCES app_user(id) ON DELETE CASCADE,
     FOREIGN KEY(setting_id) REFERENCES setting(id) ON DELETE CASCADE,
     CONSTRAINT app_user_setting_cpk PRIMARY KEY (app_user_id, setting_id)
@@ -101,6 +102,8 @@ CREATE INDEX rating_idx ON routine(rating);
 CREATE TABLE app_user_routine(
     app_user_id int NOT NULL,
     routine_id int NOT NULL,
+    is_selected boolean NOT NULL DEFAULT FALSE,
+    updated_at timestamptz,
     created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY(app_user_id) REFERENCES app_user(id) ON DELETE CASCADE,
     FOREIGN KEY(routine_id) REFERENCES routine(id) ON DELETE CASCADE,
@@ -168,6 +171,7 @@ CREATE TABLE routine_exercise(
     routine_id int NOT NULL,
     exercise_id int NOT NULL,
     day day_enum DEFAULT 'MONDAY',
+    exercise_order int NOT NULL DEFAULT 1,
     FOREIGN KEY(routine_id) REFERENCES routine(id) ON DELETE CASCADE,
     FOREIGN KEY(exercise_id) REFERENCES exercise(id) ON DELETE CASCADE
 );

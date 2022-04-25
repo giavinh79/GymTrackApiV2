@@ -23,14 +23,12 @@ public class RoutineController {
         return routineService.getRoutines();
     }
 
-    @GetMapping
-    @RequestMapping("{id}")
+    @GetMapping("{id}")
     public Routine getRoutine(@PathVariable Integer id) {
         return routineService.getRoutine(id);
     }
 
-    @DeleteMapping
-    @RequestMapping("{id}")
+    @DeleteMapping("{id}")
     public Integer deleteRoutine(@PathVariable Integer id) {
         return routineService.deleteRoutine(id);
     }
