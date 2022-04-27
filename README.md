@@ -19,10 +19,9 @@ GymTrack is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application
 
 **DB**
 - The relational database will run locally at: http://localhost:5432/
+- A useful GUI tool for PostgreSQL [pgAdmin](https://www.pgadmin.org/) will run locally at: http://localhost:5050/
 
-A useful GUI tool for PostgreSQL [pgAdmin](https://www.pgadmin.org/) will run locally at: http://localhost:5050/
-
-To connect to the PostgreSQL instance, create new server and pass `postgres` as the network - user credentials can be found in the `docker-compose.yml`).
+To connect to the PostgreSQL instance, create a new server and pass `postgres` as the network. User credentials can be found in `docker-compose.yml`.
 
 ### Prerequisites
 The following items should be installed in your system:
