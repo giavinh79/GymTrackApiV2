@@ -1,0 +1,37 @@
+server:
+  port: 3030
+
+spring:
+  application:
+    name: GymTrack
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.diaclect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: false
+    url: 'jdbc:postgresql://localhost:5432/postgres'
+    user: admin
+    password: admin
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure=ERROR:
+#    root: debug

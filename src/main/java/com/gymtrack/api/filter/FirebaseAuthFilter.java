@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ import java.io.IOException;
 @Component
 @Order(1)
 @Slf4j
+@Profile("!test")
 public class FirebaseAuthFilter implements Filter {
     private final FirebaseService firebaseService;
     private final UserServiceImpl userServiceImpl;

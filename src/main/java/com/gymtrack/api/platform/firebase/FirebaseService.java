@@ -11,6 +11,7 @@ import com.gymtrack.api.exception.AuthenticationException;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.io.IOException;
 // Google's Firebase Admin SDK
 @Component
 @Slf4j
+@Profile("!test")
 public class FirebaseService {
     public void initialize() {
         try {

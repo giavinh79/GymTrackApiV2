@@ -5,9 +5,11 @@ import com.gymtrack.api.platform.firebase.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!test")
 public class AppStartupRunner implements ApplicationRunner {
     private final FirebaseService firebaseService;
 
