@@ -1,4 +1,4 @@
-package com.gymtrack.api.exception;
+package com.gymtrack.api.exception.response;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;

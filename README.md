@@ -44,9 +44,10 @@ The following items should be installed in your system:
 
 ### Development
 
-- Using [IntelliJ](https://www.jetbrains.com/idea/)
+- Using [IntelliJ](https://www.jetbrains.com/idea/) IDE
     - [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint)
     - [Format code on save (rearrange, reformat, optimize imports)](https://stackoverflow.com/a/68629786)
+    - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
 
 ## Project Structure
 

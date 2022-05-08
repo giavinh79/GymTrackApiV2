@@ -8,14 +8,12 @@ import com.gymtrack.api.feature.user.service.UserServiceImpl;
 import com.gymtrack.api.platform.firebase.FirebaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -29,15 +27,11 @@ import java.io.IOException;
 public class FirebaseAuthFilter implements Filter {
     private final FirebaseService firebaseService;
     private final UserServiceImpl userServiceImpl;
-    private final HandlerExceptionResolver exceptionResolver;
 
     @Autowired
-    public FirebaseAuthFilter(UserServiceImpl userServiceImpl,
-                              FirebaseService firebaseService,
-                              @Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver) {
+    public FirebaseAuthFilter(UserServiceImpl userServiceImpl, FirebaseService firebaseService) {
         this.userServiceImpl = userServiceImpl;
         this.firebaseService = firebaseService;
-        this.exceptionResolver = exceptionResolver;
     }
 
     @Override
@@ -76,7 +70,7 @@ public class FirebaseAuthFilter implements Filter {
     @Bean
     FilterRegistrationBean<FirebaseAuthFilter> firebaseAuthFilterRegistration() {
         FilterRegistrationBean<FirebaseAuthFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new FirebaseAuthFilter(userServiceImpl, firebaseService, exceptionResolver));
+        registrationBean.setFilter(new FirebaseAuthFilter(userServiceImpl, firebaseService));
         registrationBean.addUrlPatterns("/api/*");
         registrationBean.setOrder(1);
         return registrationBean;
