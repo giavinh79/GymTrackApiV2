@@ -23,7 +23,7 @@ import java.io.IOException;
 public class FirebaseService {
     public void initialize() {
         try {
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.getApplicationDefault())
                     .setDatabaseUrl("https://gymtrack-e6a77.firebaseio.com")
                     .build();
@@ -31,7 +31,7 @@ public class FirebaseService {
             FirebaseApp.initializeApp(options);
             log.info("Initialized Google Firebase successfully");
         } catch (IOException e) {
-            System.out.println("ERROR INITIALIZING FIREBASE - " + e.getMessage());
+            log.error("ERROR INITIALIZING FIREBASE - " + e.getMessage());
             System.exit(1);
         }
     }

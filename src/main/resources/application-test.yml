@@ -2,6 +2,12 @@ server:
   port: 3030
 
 spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
   application:
     name: GymTrack
   datasource:
@@ -26,7 +32,7 @@ management:
     enabled-by-default: false
   endpoint:
     health:
-      enabled: true
+      enabled: false
 
 logging:
   level:

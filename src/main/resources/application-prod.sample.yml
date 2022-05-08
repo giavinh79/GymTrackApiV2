@@ -1,1 +1,41 @@
-# copy properties here and rename to application-prod.yml to configure prod application properties
+# copy prod properties here and rename to application-prod.yml to configure prod application properties
+
+server:
+  port: 3030
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: GymTrack
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.diaclect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    url: 'jdbc:postgresql://localhost:5432/postgres'
+    user: admin
+    password: admin
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure=ERROR:
+#    root: debug
