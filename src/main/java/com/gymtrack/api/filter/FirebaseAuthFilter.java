@@ -8,23 +8,24 @@ import com.gymtrack.api.feature.user.service.UserServiceImpl;
 import com.gymtrack.api.platform.firebase.FirebaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@Order(1)
+@Order(2)
 @Slf4j
 @Profile("!test")
-public class FirebaseAuthFilter implements Filter {
+public class FirebaseAuthFilter extends OncePerRequestFilter implements Filter {
     private final FirebaseService firebaseService;
     private final UserServiceImpl userServiceImpl;
 
@@ -35,15 +36,8 @@ public class FirebaseAuthFilter implements Filter {
     }
 
     @Override
-    public void doFilter(
-            ServletRequest request,
-            ServletResponse response,
-            FilterChain chain) throws IOException, ServletException, AuthenticationException {
-        HttpServletRequest httpReq = (HttpServletRequest) request;
-        HttpServletResponse httpRes = (HttpServletResponse) response;
-
-        log.info("{} request received for endpoint: {}", httpReq.getMethod(), httpReq.getRequestURI());
-
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws IOException, ServletException, AuthenticationException {
         String jwtToken = request.getParameter("token");
 
         try {
@@ -52,28 +46,27 @@ public class FirebaseAuthFilter implements Filter {
 
             request.setAttribute("user", user);
 
-            log.info("User {} authenticated successfully with IP {} for {}", user.getId(), httpReq.getRemoteAddr(), httpReq.getRequestURI());
+            log.info("User {} authenticated successfully with IP {} for {}", user.getId(), request.getRemoteAddr(), request.getRequestURI());
         } catch (FirebaseAuthException ex) {
-            log.warn("User was unauthorized with IP {}", httpReq.getRemoteAddr());
-            httpRes.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
+            log.warn("User was unauthorized with IP {}", request.getRemoteAddr());
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
+            return;
         } catch (NotFoundException ex) {
-            log.warn("User was not found with IP {}", httpReq.getRemoteAddr());
-            httpRes.sendError(HttpStatus.NOT_FOUND.value(), "User was not found");
+            log.warn("User was not found with IP {}", request.getRemoteAddr());
+            response.sendError(HttpStatus.NOT_FOUND.value(), "User was not found");
+            return;
         }
 
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 
     /**
      * Configures filter above to only run on API routes (i.e. ignore public routes like actuator/health)
      */
-    @Bean
-    FilterRegistrationBean<FirebaseAuthFilter> firebaseAuthFilterRegistration() {
-        FilterRegistrationBean<FirebaseAuthFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new FirebaseAuthFilter(userServiceImpl, firebaseService));
-        registrationBean.addUrlPatterns("/api/*");
-        registrationBean.setOrder(1);
-        return registrationBean;
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return !path.startsWith("/api/");
     }
 }
 
