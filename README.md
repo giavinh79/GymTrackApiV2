@@ -5,6 +5,8 @@
 This is the second iteration of the API for the GymTrack application built with Java Spring Boot and PostgreSQL. It is
 currently being built and not close to being production ready.
 
+The front-end repository can be found here: https://github.com/GV79/GymTrack.
+
 <a href="https://todo.com">See the full-stack application here</a>
 
 The API itself is deployed [here](https://todo.com) and documented [here](https://todo.com) using the OpenApi (Swagger)
