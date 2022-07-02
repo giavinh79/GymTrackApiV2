@@ -20,6 +20,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 @Order(2)
@@ -46,13 +48,13 @@ public class FirebaseAuthFilter extends OncePerRequestFilter implements Filter {
 
             request.setAttribute("user", user);
 
-            log.info("User {} authenticated successfully with IP {} for {}", user.getId(), request.getRemoteAddr(), request.getRequestURI());
+            log.info("[SUCCESS] User authenticated - [userId={}, ip={}]", user.getId(), request.getRemoteAddr());
         } catch (FirebaseAuthException ex) {
-            log.warn("User was unauthorized with IP {}", request.getRemoteAddr());
+            log.warn("[WARNING] User was unauthorized - [ip={}]", request.getRemoteAddr());
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
             return;
         } catch (NotFoundException ex) {
-            log.warn("User was not found with IP {}", request.getRemoteAddr());
+            log.warn("[WARNING] User was not found - [ip={}]", request.getRemoteAddr());
             response.sendError(HttpStatus.NOT_FOUND.value(), "User was not found");
             return;
         }
@@ -66,7 +68,13 @@ public class FirebaseAuthFilter extends OncePerRequestFilter implements Filter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        return !path.startsWith("/api/");
+
+        List<String> acceptedRegexPaths = Arrays.asList(
+                "/actuator/.*",
+                "/api/.*/auth/signup"
+        );
+
+        return acceptedRegexPaths.stream().anyMatch(path::matches);
     }
 }
 

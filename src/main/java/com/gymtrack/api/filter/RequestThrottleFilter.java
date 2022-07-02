@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class RequestThrottleFilter extends OncePerRequestFilter implements Filter {
-    private final int MAX_REQUESTS_PER_SECOND = 5;
+    private final static int MAX_REQUESTS_PER_SECOND = 5;
 
     private LoadingCache<String, Integer> requestCountsPerIpAddress;
 
@@ -38,12 +38,12 @@ public class RequestThrottleFilter extends OncePerRequestFilter implements Filte
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
 
-        log.info("{} request received for endpoint: {}", request.getMethod(), request.getRequestURI());
+        log.info("[SUCCESS] {} request received for endpoint: {}", request.getMethod(), request.getRequestURI());
 
         String clientIpAddress = getClientIP(request);
 
         if (isMaximumRequestsPerSecondExceeded(clientIpAddress)) {
-            log.warn("User with IP {} has reached request rate limit", request.getRemoteAddr());
+            log.warn("[WARNING] User reached request rate limit - [ip={}]", request.getRemoteAddr());
             response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Too many requests");
             return;
         }

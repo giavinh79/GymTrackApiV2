@@ -6,11 +6,8 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
-
 import com.gymtrack.api.exception.AuthenticationException;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -29,9 +26,9 @@ public class FirebaseService {
                     .build();
 
             FirebaseApp.initializeApp(options);
-            log.info("Initialized Google Firebase successfully");
+            log.info("[SUCCESS] Initialized Google Firebase");
         } catch (IOException e) {
-            log.error("ERROR INITIALIZING FIREBASE - " + e.getMessage());
+            log.error("[ERROR] Initializing Google Firebase - [errorMsg={}]", e.getMessage());
             System.exit(1);
         }
     }

@@ -1,10 +1,13 @@
 package com.gymtrack.api.feature.user.model;
 
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Builder
 @Entity
@@ -33,21 +36,21 @@ public class User {
     private String lastLoggedInIp;
 
     @Column
-    private Timestamp lastLoggedInDate;
+    private LocalDateTime lastLoggedInDate;
+
+    @Column(insertable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Column
-    @CreatedDate
-    private Timestamp createdAt;
+    private LocalDateTime updatedAt;
 
     @Column
-    private Timestamp updatedAt;
-
-    @Column
-    private Timestamp deletedAt;
+    private LocalDateTime deletedAt;
 
     @Transient
     public int getAge() {
-        // @TODO - store birth dates and compute age via this logic
+        // TODO - store birth dates and compute age via this logic
         return 0;
-    };
+    }
 }

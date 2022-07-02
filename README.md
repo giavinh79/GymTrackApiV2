@@ -73,3 +73,4 @@ PostgreSQL cloud instance.
 ## Other To Dos
 
 Maybe look into Hexagonal Architecture (for fun)
+https://www.youtube.com/watch?v=ujb_O6myknY&t=287s

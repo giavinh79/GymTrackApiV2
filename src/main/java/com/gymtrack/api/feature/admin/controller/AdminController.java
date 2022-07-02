@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
     @GetMapping("/user/{id}")
     public String updateUser(@PathVariable String id) {
-        // @TODO - validate user credentials and check if they are a super-admin
+        // TODO - validate user credentials and check if they are a super-admin
 
-        // placeholder for above @TODO
-        if (id != "") {
+        // placeholder for above TODO
+        if (!id.equals("")) {
             throw new ForbiddenException();
         }
 
-        log.info("Updated user {} with super-admin privileges", id);
+        log.info("[SUCCESS] Updated user with super-admin privileges - [userId={}]", id);
         return id;
     }
 }

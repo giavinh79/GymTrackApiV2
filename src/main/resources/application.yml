@@ -2,7 +2,6 @@ server:
   port: 3030
   error:
     include-message: always
-
 spring:
   application:
     name: GymTrack
@@ -15,6 +14,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     hibernate:
       ddl-auto: none
   flyway:
@@ -24,11 +24,24 @@ spring:
     password: admin
 
 management:
+  info:
+    env:
+      enabled: true
   endpoints:
     enabled-by-default: false
+    web:
+      exposure:
+        include: health, info
   endpoint:
+    info:
+      enabled: true
     health:
       enabled: true
+
+info:
+  application:
+    name: GymTrack API
+    description: Spring Boot REST API for GymTrack application
 
 logging:
   level:

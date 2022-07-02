@@ -2,9 +2,10 @@ package com.gymtrack.api.feature.routine.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Builder
@@ -20,13 +21,13 @@ public class Routine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="public_id", length=100, unique=true)
+    @Column(name = "public_id", length = 100, unique = true)
     private String publicId;
 
-    @Column(name="creator_id", nullable = false)
+    @Column(name = "creator_id", nullable = false)
     private Integer creatorId;
 
-    @Column(name="image_id")
+    @Column(name = "image_id")
     private Integer imageId;
 
     private String name;
@@ -34,19 +35,20 @@ public class Routine {
 
     private Double rating;
 
-    @Column(name="created_at", nullable = false)
-    private Timestamp createdAt;
+    @Column(insertable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    @Column(name="updated_at")
-    private Timestamp updatedAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @Column(name="deleted_at")
-    private Timestamp deletedAt;
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
-    @Column(name="num_times_copied", nullable = false)
+    @Column(name = "num_times_copied", nullable = false)
     private Integer numTimesCopied;
 
-    @Column(name="base_routine_id")
+    @Column(name = "base_routine_id")
     private Integer baseRoutineId;
 
     @Override

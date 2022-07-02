@@ -3,12 +3,9 @@ package com.gymtrack.api.feature.user.service;
 import com.gymtrack.api.exception.NotFoundException;
 import com.gymtrack.api.feature.user.model.User;
 import com.gymtrack.api.feature.user.repository.UserRepository;
-
 import lombok.AllArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.LocalDateTime;
 
@@ -28,7 +25,7 @@ public class UserServiceImpl {
         User user = User.builder()
                 .email(email)
                 .firebaseId(firebaseId)
-                .updatedAt(Timestamp.valueOf(now))
+                .updatedAt(now)
                 .build();
 
         return userRepository.save(user);

@@ -1,3 +1,5 @@
+# For spinning up local postgres db
+
 services:
   postgres:
     container_name: postgres
