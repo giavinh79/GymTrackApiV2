@@ -46,6 +46,8 @@ The following items should be installed in your system:
 
 - Using [IntelliJ](https://www.jetbrains.com/idea/) IDE
     - [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint)
+        - Configure rules in Settings -> Tools -> SonarLint -> Rules
+        - Rules I've disabled: @TODO warnings/errors
     - [Format code on save (rearrange, reformat, optimize imports)](https://stackoverflow.com/a/68629786)
     - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
 

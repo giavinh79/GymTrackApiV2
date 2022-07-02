@@ -1,11 +1,8 @@
-package com.gymtrack.api.filter;
+package com.gymtrack.api.filter.auth;
 
-import com.google.firebase.auth.FirebaseAuthException;
 import com.gymtrack.api.exception.AuthenticationException;
 import com.gymtrack.api.exception.NotFoundException;
 import com.gymtrack.api.feature.user.model.User;
-import com.gymtrack.api.feature.user.service.UserServiceImpl;
-import com.gymtrack.api.platform.firebase.FirebaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -27,29 +24,26 @@ import java.util.List;
 @Order(2)
 @Slf4j
 @Profile("!test")
-public class FirebaseAuthFilter extends OncePerRequestFilter implements Filter {
-    private final FirebaseService firebaseService;
-    private final UserServiceImpl userServiceImpl;
+public class AuthFilter extends OncePerRequestFilter implements Filter {
+    private Auth auth;
 
     @Autowired
-    public FirebaseAuthFilter(UserServiceImpl userServiceImpl, FirebaseService firebaseService) {
-        this.userServiceImpl = userServiceImpl;
-        this.firebaseService = firebaseService;
+    public AuthFilter(FirebaseAuth firebaseAuth) {
+        this.auth = firebaseAuth;
     }
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws IOException, ServletException, AuthenticationException {
+            throws IOException, ServletException {
         String jwtToken = request.getParameter("token");
 
         try {
-            String userUid = firebaseService.authenticateFirebaseUser(jwtToken);
-            User user = userServiceImpl.getUserByFirebaseId(userUid);
+            User user = auth.authenticate(jwtToken);
 
             request.setAttribute("user", user);
 
             log.info("[SUCCESS] User authenticated - [userId={}, ip={}]", user.getId(), request.getRemoteAddr());
-        } catch (FirebaseAuthException ex) {
+        } catch (AuthenticationException ex) {
             log.warn("[WARNING] User was unauthorized - [ip={}]", request.getRemoteAddr());
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
             return;
