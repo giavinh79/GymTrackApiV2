@@ -7,9 +7,11 @@ import com.gymtrack.api.feature.user.model.User;
 import com.gymtrack.api.feature.user.service.UserServiceImpl;
 import com.gymtrack.api.platform.firebase.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!test")
 public class FirebaseAuth implements Auth {
     private final FirebaseService firebaseService;
     private final UserServiceImpl userServiceImpl;
