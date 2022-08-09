@@ -15,16 +15,15 @@ public class UserServiceImpl {
     private final UserRepository userRepository;
     private final Clock clock = Clock.systemUTC();
 
-    public User getUserByFirebaseId(String firebaseId) {
-        return userRepository.findByFirebaseId(firebaseId).orElseThrow(() -> new NotFoundException("User not found"));
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
-    public User createUser(String email, String firebaseId) {
+    public User createUser(String email) {
         LocalDateTime now = LocalDateTime.now(clock);
 
         User user = User.builder()
                 .email(email)
-                .firebaseId(firebaseId)
                 .updatedAt(now)
                 .build();
 

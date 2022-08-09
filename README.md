@@ -78,3 +78,5 @@ PostgreSQL cloud instance.
 
 Maybe look into Hexagonal Architecture (for fun)
 https://www.youtube.com/watch?v=ujb_O6myknY&t=287s
+
+Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)

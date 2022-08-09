@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @Profile("!test")
 public class AuthFilter extends OncePerRequestFilter implements Filter {
-    private Auth auth;
+    private final Auth auth;
 
     @Autowired
     public AuthFilter(FirebaseAuth firebaseAuth) {
@@ -35,21 +35,34 @@ public class AuthFilter extends OncePerRequestFilter implements Filter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
-        String jwtToken = request.getParameter("token");
+        if (request.getMethod().equals("OPTIONS")) {
+            // https://www.baeldung.com/spring-security-cors-preflight
+            // by default, for requests with `authorization` header, browser sends preflight OPTIONS request
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         try {
+            String authorizationHeader = request.getHeader("authorization");
+
+            if (authorizationHeader == null || authorizationHeader.equals("") || !authorizationHeader.contains("Bearer ")) {
+                throw new AuthenticationException();
+            }
+
+            String jwtToken = authorizationHeader.split(" ")[1];
+
             User user = auth.authenticate(jwtToken);
 
             request.setAttribute("user", user);
 
             log.info("[SUCCESS] User authenticated - [userId={}, ip={}]", user.getId(), request.getRemoteAddr());
-        } catch (AuthenticationException ex) {
-            log.warn("[WARNING] User was unauthorized - [ip={}]", request.getRemoteAddr());
-            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
-            return;
         } catch (NotFoundException ex) {
             log.warn("[WARNING] User was not found - [ip={}]", request.getRemoteAddr());
             response.sendError(HttpStatus.NOT_FOUND.value(), "User was not found");
+            return;
+        } catch (AuthenticationException ex) {
+            log.warn("[WARNING] User was unauthorized - [ip={}]", request.getRemoteAddr());
+            response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
             return;
         }
 

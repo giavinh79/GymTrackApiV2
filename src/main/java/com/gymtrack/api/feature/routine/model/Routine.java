@@ -1,11 +1,13 @@
 package com.gymtrack.api.feature.routine.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gymtrack.api.feature.user_routine.model.UserRoutine;
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -14,7 +16,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Routine {
 
     @Id
@@ -51,16 +52,20 @@ public class Routine {
     @Column(name = "base_routine_id")
     private Integer baseRoutineId;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "routine")
+    private List<UserRoutine> userRoutines;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Routine routine = (Routine) o;
-        return id != null && Objects.equals(id, routine.id);
+        return id.equals(routine.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id);
     }
 }

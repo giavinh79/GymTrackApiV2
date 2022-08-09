@@ -27,14 +27,17 @@ public class AuthController {
     @Operation(summary = "Create a new user and sign them up for Firebase")
     @PostMapping("/signup")
     public User signup(@Valid @RequestBody UserSignupDTO userSignupDTO) throws FirebaseAuthException {
+        User user = userService.createUser(userSignupDTO.email());
+
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail(userSignupDTO.email())
                 .setEmailVerified(false)
                 .setPassword(userSignupDTO.password())
                 .setDisplayName(userSignupDTO.email())
-                .setDisabled(false);
+                .setDisabled(false)
+                .setUid((user.getId().toString()));
+        FirebaseAuth.getInstance().createUser(request);
 
-        UserRecord userRecord = FirebaseAuth.getInstance().createUser(request);
-        return userService.createUser(userRecord.getEmail(), userRecord.getUid());
+        return user;
     }
 }

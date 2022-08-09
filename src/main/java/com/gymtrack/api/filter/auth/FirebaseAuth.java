@@ -24,9 +24,8 @@ public class FirebaseAuth implements Auth {
 
     public User authenticate(String jwtToken) throws AuthenticationException, NotFoundException {
         try {
-            String userUid = firebaseService.authenticateFirebaseUser(jwtToken);
-            User user = userServiceImpl.getUserByFirebaseId(userUid);
-            return user;
+            String firebaseUserUid = firebaseService.authenticateFirebaseUser(jwtToken);
+            return userServiceImpl.getUserById(Integer.parseInt(firebaseUserUid));
         } catch (FirebaseAuthException ex) {
             throw new AuthenticationException(ex.getMessage());
         }
