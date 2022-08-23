@@ -63,7 +63,7 @@ opposed to type).
 The PostgreSQL schema ER diagram can be found here (need to login & could be
 outdated): https://lucid.app/lucidchart/dd9442a0-7dd9-4202-a0d6-0ac82ad5bff2/edit?invitationId=inv_613c1097-affe-4ccf-9781-51b230058742
 
-![image](https://user-images.githubusercontent.com/24909563/154824860-209d0041-9903-4d9c-a382-f95745e1b23d.png)
+![GymTrack Schema](https://user-images.githubusercontent.com/24909563/186131357-83f688af-50f1-44bd-937e-7f0379147a53.png)
 
 The project uses [Flyway](https://flywaydb.org/) as version control for the database (managing DB migrations).
 
