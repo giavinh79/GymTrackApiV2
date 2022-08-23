@@ -1,4 +1,4 @@
--- Create dummy data for testing and debugging
+-- Create dummy user data for testing
 
 -- Create users
 DELETE
@@ -18,6 +18,8 @@ INSERT INTO routine
  base_routine_id)
 VALUES (1, 'testroutine1', 1, null, 'Zertovsky''s Routine', 'PPL with heavy emphasis on chest', 5.0, NOW(), null, null,
         0, null);
+-- Adjust the ID sequence for future insertions (https://stackoverflow.com/a/37972960)
+SELECT setval('app_user_id_seq', 1, true);
 
 -- Connect users with routines
 DELETE

@@ -148,10 +148,8 @@ CREATE TABLE muscle
     id   SERIAL PRIMARY KEY,
     name varchar(50) UNIQUE NOT NULL
 );
-INSERT INTO muscle
-VALUES (1, 'PECS');
 
--- Create exercise tables
+-- Create exercise and set tables
 CREATE TABLE exercise_value_type
 (
     id   SERIAL PRIMARY KEY,
@@ -159,22 +157,42 @@ CREATE TABLE exercise_value_type
 );
 INSERT INTO exercise_value_type
 VALUES (1, 'REPS'),
-       (2, 'TIME_IN_SEC'),
-       (3, 'TIME_IN_MIN'),
-       (4, 'WEIGHT_LBS'),
-       (5, 'WEIGHT_KGS');
+       (2, 'TIME'),
+       (3, 'WEIGHT');
 
+CREATE TABLE exercise_value_type_unit
+(
+    id                     SERIAL PRIMARY KEY,
+    exercise_value_type_id int,
+    name                   varchar(50) UNIQUE NOT NULL,
+    FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE CASCADE
+);
+INSERT INTO exercise_value_type_unit
+VALUES (1, 2, 'SECONDS'),
+       (2, 2, 'HOURS'),
+       (3, 3, 'KILOGRAMS'),
+       (4, 3, 'POUNDS');
+
+CREATE TABLE set
+(
+    id                       BIGSERIAL PRIMARY KEY,
+    num_reps                 int NOT NULL,
+    value                    int,
+    exercise_value_type      int NOT NULL,
+    exercise_value_type_unit int,
+    FOREIGN KEY (exercise_value_type) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
+    FOREIGN KEY (exercise_value_type_unit) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
+);
+
+-- If no exercise_value_type_id, we'll default to the weight type
 CREATE TABLE exercise
 (
     id                     SERIAL PRIMARY KEY,
-    event_log_type_id      int         NOT NULL,
-    app_user_id            int,
+    name                   varchar(75)                           NOT NULL,
     description            text,
-    image_id               int         NOT NULL,
-    exercise_value_type_id int         NOT NULL,
-    default_value          varchar(20) NOT NULL,
-    default_num_sets       int         NOT NULL,
-    created_at             timestamptz,
+    image_id               int,
+    exercise_value_type_id int,
+    created_at             timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
     creator_id             int,
     FOREIGN KEY (image_id) REFERENCES image (id) ON DELETE SET NULL,
     FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE CASCADE,
@@ -203,10 +221,28 @@ CREATE TABLE routine_exercise
 );
 CREATE INDEX day_idx ON routine_exercise (day);
 
+CREATE TABLE app_user_routine_exercise
+(
+    id          SERIAL PRIMARY KEY,
+    exercise_id int NOT NULL,
+    routine_id  int NOT NULL,
+    app_user_id int NOT NULL,
+    FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE,
+    FOREIGN KEY (app_user_id, routine_id) REFERENCES app_user_routine (app_user_id, routine_id) ON DELETE CASCADE
+);
+
+CREATE TABLE app_user_routine_exercise_set
+(
+    app_user_routine_exercise_id int NOT NULL,
+    set_id                       int NOT NULL,
+    FOREIGN KEY (app_user_routine_exercise_id) REFERENCES app_user_routine_exercise (id) ON DELETE CASCADE,
+    FOREIGN KEY (set_id) REFERENCES set (id) ON DELETE CASCADE
+);
+
 -- Create session/workout tables
 CREATE TABLE session_log
 (
-    id            SERIAL PRIMARY KEY,
+    id            BIGSERIAL PRIMARY KEY,
     routine_id    int                                   NOT NULL,
     app_user_id   int                                   NOT NULL,
     start_time    timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -218,7 +254,7 @@ CREATE TABLE session_log
 
 CREATE TABLE session_exercise_log
 (
-    id             SERIAL PRIMARY KEY,
+    id             BIGSERIAL PRIMARY KEY,
     exercise_id    int                                   NOT NULL,
     session_log_id int                                   NOT NULL,
     start_time     timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -229,12 +265,25 @@ CREATE TABLE session_exercise_log
     FOREIGN KEY (session_log_id) REFERENCES session_log (id) ON DELETE CASCADE
 );
 
+-- CREATE TABLE session_exercise_set_log
+-- (
+--     id                          BIGSERIAL PRIMARY KEY,
+--     value                       varchar(20) NOT NULL,
+--     session_exercise_log_id     int         NOT NULL,
+--     exercise_value_type_id      int         NOT NULL,
+--     exercise_value_type_unit_id int         NOT NULL,
+--     FOREIGN KEY (session_exercise_log_id) REFERENCES session_exercise_log (id) ON DELETE CASCADE,
+--     FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
+--     FOREIGN KEY (exercise_value_type_unit_id) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
+-- );
+
 CREATE TABLE session_exercise_set_log
 (
-    id                      SERIAL PRIMARY KEY,
-    session_exercise_log_id int         NOT NULL,
-    value                   varchar(20) NOT NULL,
-    FOREIGN KEY (session_exercise_log_id) REFERENCES session_exercise_log (id) ON DELETE CASCADE
+    id                      BIGSERIAL PRIMARY KEY,
+    session_exercise_log_id int NOT NULL,
+    set_id                  int NOT NULL,
+    FOREIGN KEY (session_exercise_log_id) REFERENCES session_exercise_log (id) ON DELETE CASCADE,
+    FOREIGN KEY (set_id) REFERENCES set (id) ON DELETE CASCADE
 );
 
 -- Create event tables

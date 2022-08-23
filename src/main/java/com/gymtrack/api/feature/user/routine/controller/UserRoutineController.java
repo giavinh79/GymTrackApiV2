@@ -20,7 +20,7 @@ public class UserRoutineController {
 
     @GetMapping("user/{userId}/routines")
     public List<UserRoutineDTO> getUsersRoutines(@PathVariable Integer userId, @RequestAttribute(value = "user") User user) {
-        if (user.getId().equals(userId)) {
+        if (!user.getId().equals(userId)) {
             throw new AuthenticationException("Unauthorized");
         }
 
