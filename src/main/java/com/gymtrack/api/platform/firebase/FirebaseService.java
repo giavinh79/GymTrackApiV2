@@ -18,6 +18,11 @@ import java.io.IOException;
 @Slf4j
 @Profile("!test")
 public class FirebaseService {
+
+    public boolean isInitialized() {
+        return !FirebaseApp.getApps().isEmpty();
+    }
+
     public void initialize() {
         try {
             FirebaseOptions options = FirebaseOptions.builder()

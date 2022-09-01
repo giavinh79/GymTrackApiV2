@@ -20,6 +20,10 @@ public class AppStartupRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         // add env feature flag for being able to control whether we initialize a certain service or not
+        if (firebaseService.isInitialized()) {
+            return;
+        }
+        
         firebaseService.initialize();
     }
 }

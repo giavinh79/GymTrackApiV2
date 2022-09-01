@@ -1,6 +1,7 @@
 package com.gymtrack.api.feature.routine.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
 import com.gymtrack.api.feature.user_routine.model.UserRoutine;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -55,6 +56,9 @@ public class Routine {
     @JsonBackReference
     @OneToMany(mappedBy = "routine")
     private List<UserRoutine> userRoutines;
+
+    @OneToMany(mappedBy = "routine")
+    private List<RoutineExercise> routineExercises;
 
     @Override
     public boolean equals(Object o) {

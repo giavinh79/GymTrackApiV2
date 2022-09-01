@@ -52,6 +52,8 @@ The following items should be installed in your system:
         - Rules I've disabled: @TODO warnings/errors
     - [Format code on save (rearrange, reformat, optimize imports)](https://stackoverflow.com/a/68629786)
     - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
+        - Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
+        - Settings -> Advanced Settings -> Allow auto-make to start even if...etc.
 
 ## Project Structure
 

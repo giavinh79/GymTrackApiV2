@@ -1,5 +1,6 @@
 package com.gymtrack.api.feature.user.routine.dto;
 
+import com.gymtrack.api.feature.workout.Workout;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,18 @@ public class UserRoutineDTO {
     private LocalDateTime createdAt;
     private Integer numTimesCopied;
     private Boolean isSelected;
+
+    private Workout workout;
+
+    /*
+    workouts: {
+        monday: Exercise
+        tuesday: Exercise model
+        wednesday: Exercise model
+        thursday:
+        friday:
+        saturday:
+        sunday:
+    }
+     */
 }
