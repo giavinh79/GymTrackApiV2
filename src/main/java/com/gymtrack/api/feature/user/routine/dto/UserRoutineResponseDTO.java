@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class UserRoutineDTO {
+public class UserRoutineResponseDTO {
     private Integer id;
     private String publicId;
     private Integer imageId;
@@ -21,16 +21,4 @@ public class UserRoutineDTO {
     private Boolean isSelected;
 
     private Workout workout;
-
-    /*
-    workouts: {
-        monday: Exercise
-        tuesday: Exercise model
-        wednesday: Exercise model
-        thursday:
-        friday:
-        saturday:
-        sunday:
-    }
-     */
 }

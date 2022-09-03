@@ -8,6 +8,8 @@ INSERT INTO app_user
 (id, first_name, last_name, email, last_logged_in_date, last_logged_in_ip, created_at, updated_at, deleted_at,
  location_id, image_id)
 VALUES (1, 'Test', 'User', 'tester@gmail.com', null, null, NOW(), null, null, null, null);
+-- Adjust the ID sequence for future insertions (https://stackoverflow.com/a/37972960)
+SELECT setval('app_user_id_seq', 1, true);
 
 -- Create routines
 DELETE
@@ -18,8 +20,7 @@ INSERT INTO routine
  base_routine_id)
 VALUES (1, 'testroutine1', 1, null, 'Zertovsky''s Routine', 'PPL with heavy emphasis on chest', 5.0, NOW(), null, null,
         0, null);
--- Adjust the ID sequence for future insertions (https://stackoverflow.com/a/37972960)
-SELECT setval('app_user_id_seq', 1, true);
+SELECT setval('routine_id_seq', 1, true);
 
 -- Connect users with routines
 DELETE

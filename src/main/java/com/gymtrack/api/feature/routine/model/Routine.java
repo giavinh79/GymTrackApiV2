@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,7 +48,7 @@ public class Routine {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "num_times_copied", nullable = false)
+    @Column(name = "num_times_copied", nullable = false, columnDefinition = "integer default 0")
     private Integer numTimesCopied;
 
     @Column(name = "base_routine_id")
@@ -55,10 +56,10 @@ public class Routine {
 
     @JsonBackReference
     @OneToMany(mappedBy = "routine")
-    private List<UserRoutine> userRoutines;
+    private List<UserRoutine> userRoutines = new ArrayList<>();
 
     @OneToMany(mappedBy = "routine")
-    private List<RoutineExercise> routineExercises;
+    private List<RoutineExercise> routineExercises = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

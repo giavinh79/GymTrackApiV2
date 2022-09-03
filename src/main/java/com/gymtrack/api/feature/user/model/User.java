@@ -52,7 +52,6 @@ public class User {
     private List<UserRoutine> userRoutines;
 
     @Transient
-
     public int getAge() {
         // TODO - store birth dates and compute age via this logic
         return 0;

@@ -1,5 +1,6 @@
 package com.gymtrack.api.filter.auth;
 
+import com.gymtrack.api.context.UserContextMapper;
 import com.gymtrack.api.exception.AuthenticationException;
 import com.gymtrack.api.exception.NotFoundException;
 import com.gymtrack.api.feature.user.model.User;
@@ -53,7 +54,7 @@ public class AuthFilter extends OncePerRequestFilter implements Filter {
 
             User user = auth.authenticate(jwtToken);
 
-            request.setAttribute("user", user);
+            request.setAttribute("userContext", UserContextMapper.INSTANCE.userToUserContext(user));
 
             log.info("[SUCCESS] User authenticated - [userId={}, ip={}]", user.getId(), request.getRemoteAddr());
         } catch (NotFoundException ex) {

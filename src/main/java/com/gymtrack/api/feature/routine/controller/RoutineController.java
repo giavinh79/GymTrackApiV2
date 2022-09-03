@@ -1,9 +1,9 @@
 package com.gymtrack.api.feature.routine.controller;
 
+import com.gymtrack.api.context.UserContext;
 import com.gymtrack.api.exception.AuthenticationException;
 import com.gymtrack.api.feature.routine.model.Routine;
 import com.gymtrack.api.feature.routine.service.RoutineService;
-import com.gymtrack.api.feature.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class RoutineController {
     }
 
     @GetMapping("{id}")
-    public Routine getRoutine(@PathVariable Integer id, @RequestAttribute(value = "user") User user) {
+    public Routine getRoutine(@PathVariable Integer id, @RequestAttribute(value = "userContext") UserContext user) {
         Routine routine = routineService.getRoutine(id);
         // @TODO if super-admin, can override + create validation/ACL class/layer
         if (routine.getCreatorId().equals(user.getId())) {
@@ -35,7 +35,7 @@ public class RoutineController {
     }
 
     @DeleteMapping("{id}")
-    public Integer deleteRoutine(@PathVariable Integer id, @RequestAttribute(value = "user") User user) {
+    public Integer deleteRoutine(@PathVariable Integer id, @RequestAttribute(value = "userContext") UserContext user) {
         Routine routine = routineService.getRoutine(id);
         // @TODO if super-admin, can override
         if (routine.getCreatorId().equals(user.getId())) {
