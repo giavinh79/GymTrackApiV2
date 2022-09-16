@@ -265,18 +265,6 @@ CREATE TABLE session_exercise_log
     FOREIGN KEY (session_log_id) REFERENCES session_log (id) ON DELETE CASCADE
 );
 
--- CREATE TABLE session_exercise_set_log
--- (
---     id                          BIGSERIAL PRIMARY KEY,
---     value                       varchar(20) NOT NULL,
---     session_exercise_log_id     int         NOT NULL,
---     exercise_value_type_id      int         NOT NULL,
---     exercise_value_type_unit_id int         NOT NULL,
---     FOREIGN KEY (session_exercise_log_id) REFERENCES session_exercise_log (id) ON DELETE CASCADE,
---     FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
---     FOREIGN KEY (exercise_value_type_unit_id) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
--- );
-
 CREATE TABLE session_exercise_set_log
 (
     id                      BIGSERIAL PRIMARY KEY,

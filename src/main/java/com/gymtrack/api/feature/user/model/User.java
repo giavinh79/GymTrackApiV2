@@ -16,7 +16,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "app_user")
+@Table(name = "app_user", uniqueConstraints = @UniqueConstraint(
+        name = "email_uidx",
+        columnNames = "email"
+))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

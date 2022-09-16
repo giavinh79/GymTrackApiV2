@@ -1,8 +1,11 @@
 package com.gymtrack.api.feature.exercise.model;
 
+import com.gymtrack.api.feature.exercise_value_type.model.ExerciseValueType;
+import com.gymtrack.api.feature.muscle.model.Muscle;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,10 +28,13 @@ public class Exercise {
     private String name;
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String description;
 
     // this is really just the "default" exercise value type for the exercise if there should be one (i.e. weight)
-    private Integer exerciseValueTypeId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "exercise_value_type_id", referencedColumnName = "id")
+    private ExerciseValueType exerciseValueType;
 
     private Integer creatorId;
 
@@ -40,6 +46,14 @@ public class Exercise {
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @ManyToMany
+    @JoinTable(
+            name = "exercise_muscle",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "muscle_id"))
+    private List<Muscle> musclesUsed;
+
 
     @Override
     public boolean equals(Object o) {

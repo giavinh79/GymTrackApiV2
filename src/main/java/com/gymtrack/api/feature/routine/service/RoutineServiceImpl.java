@@ -4,26 +4,20 @@ import com.gymtrack.api.exception.NotFoundException;
 import com.gymtrack.api.feature.routine.model.Routine;
 import com.gymtrack.api.feature.routine.repository.RoutineRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class RoutineServiceImpl implements RoutineService {
     private final RoutineRepository routineRepository;
 
-    @Transactional
-    public Routine createRoutine() {
-        // create routine
-        // set existing selected routine to non-selected
-        // add it to app_user_routine and default it to selected
-        return null;
-    }
-
-    public List<Routine> getRoutines() {
-        return routineRepository.findAll();
+    public Page<Routine> getRoutines(int offset) {
+        Pageable sortedByRating = PageRequest.of(offset, 100, Sort.by("rating"));
+        return routineRepository.findAll(sortedByRating);
     }
 
     public Routine getRoutine(Integer id) {
