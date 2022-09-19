@@ -54,6 +54,8 @@ The following items should be installed in your system:
     - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
         - Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
         - Settings -> Advanced Settings -> Allow auto-make to start even if...etc.
+- The authentication is currently being powered by Google Firebase
+    - Ensure you create and setup different Firebase environments for dev vs. prod
 
 ## Project Structure
 
@@ -76,9 +78,15 @@ CI/CD to be handled using GitHub actions.
 Spring Boot server to be deployed on AWS Lightsail and will use [Supabase](https://supabase.com/) for a fully-managed
 PostgreSQL cloud instance.
 
-## Other To Dos
+## TO DOs development
 
-Maybe look into Hexagonal Architecture (for fun)
+- Tech debt: Create join table `exercise_image` between `exercise`and `image` as right now, exercises can only support a
+  single image
+- Move UserRoutine controller location
+- Compress and then store exercise images on AWS S3 rather than use wiki URLs
+- Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)
+
+## For fun
+
+Maybe look into Hexagonal Architecture
 https://www.youtube.com/watch?v=ujb_O6myknY&t=287s
-
-Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)

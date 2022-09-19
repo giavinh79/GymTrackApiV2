@@ -33,9 +33,9 @@ public class UserRoutineServiceImpl {
     public UserRoutineResponseDTO createUserRoutine(User user, UserRoutineRequestDTO userRoutineRequestDTO) {
         Routine routineToCreate = Routine.builder()
                 .creatorId(user.getId())
-                .name(userRoutineRequestDTO.getName())
-                .description((userRoutineRequestDTO.getDescription()))
-                .imageId(userRoutineRequestDTO.getImageId())
+                .name(userRoutineRequestDTO.name())
+                .description((userRoutineRequestDTO.description()))
+                .imageId(userRoutineRequestDTO.imageId())
                 .numTimesCopied(0)
                 .routineExercises(Collections.emptyList())
                 .build();

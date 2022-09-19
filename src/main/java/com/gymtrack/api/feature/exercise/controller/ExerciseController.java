@@ -1,6 +1,6 @@
 package com.gymtrack.api.feature.exercise.controller;
 
-import com.gymtrack.api.feature.exercise.dto.ExerciseDTO;
+import com.gymtrack.api.feature.exercise.dto.ExerciseResponseDTO;
 import com.gymtrack.api.feature.exercise.mapper.ExerciseMapper;
 import com.gymtrack.api.feature.exercise.repository.ExerciseRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class ExerciseController {
     private final ExerciseRepository exerciseRepository;
 
     @GetMapping
-    public List<ExerciseDTO> getExercises() {
+    public List<ExerciseResponseDTO> getExercises() {
         return exerciseRepository
                 .findAll()
                 .stream()

@@ -1,6 +1,7 @@
 package com.gymtrack.api.feature.exercise.model;
 
 import com.gymtrack.api.feature.exercise_value_type.model.ExerciseValueType;
+import com.gymtrack.api.feature.image.model.Image;
 import com.gymtrack.api.feature.muscle.model.Muscle;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
 import lombok.*;
@@ -38,8 +39,6 @@ public class Exercise {
 
     private Integer creatorId;
 
-    private Integer imageId;
-
     @OneToMany(mappedBy = "exercise")
     private List<RoutineExercise> routineExercises;
 
@@ -53,6 +52,10 @@ public class Exercise {
             joinColumns = @JoinColumn(name = "exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "muscle_id"))
     private List<Muscle> musclesUsed;
+
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
 
 
     @Override

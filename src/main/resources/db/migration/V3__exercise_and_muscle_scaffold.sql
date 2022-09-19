@@ -16,8 +16,9 @@ VALUES (1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Bench_pres
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Barbell_shoulder_press_2.svg/1529px-Barbell_shoulder_press_2.svg.png'),
        (8,
         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Standing_leg_curls_2.svg/853px-Standing_leg_curls_2.svg.png'),
-       (9, 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Air_bike_1.svg'),
-       (10, 'https://upload.wikimedia.org/wikipedia/commons/5/51/Decline_ez_bar_triceps_extension_with_barbell_2.svg');
+       (9, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Air_bike_2.svg/2560px-Air_bike_2.svg.png'),
+       (10,
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Decline_ez_bar_triceps_extension_with_barbell_1.svg/885px-Decline_ez_bar_triceps_extension_with_barbell_1.svg.png');
 
 DELETE
 FROM muscle
@@ -25,14 +26,14 @@ WHERE id <= 22;
 INSERT INTO muscle
     (id, name)
 VALUES (1, 'TRAPEZIUS'),
-       (2, 'UPPER BACK'),
-       (3, 'LOWER BACK'),
+       (2, 'UPPER_BACK'),
+       (3, 'LOWER_BACK'),
        (4, 'CHEST'),
        (5, 'BICEPS'),
        (6, 'TRICEPS'),
        (7, 'FOREARM'),
-       (8, 'BACK DELTOIDS'),
-       (9, 'FRONT DELTOIDS'),
+       (8, 'BACK_DELTOIDS'),
+       (9, 'FRONT_DELTOIDS'),
        (10, 'ABS'),
        (11, 'OBLIQUES'),
        (12, 'ABDUCTOR'),
@@ -44,8 +45,8 @@ VALUES (1, 'TRAPEZIUS'),
        (18, 'HEAD'),
        (19, 'NECK'),
        (20, 'KNEES'),
-       (21, 'LEFT SOLEUS'),
-       (22, 'RIGHT SOLEUS');
+       (21, 'LEFT_SOLEUS'),
+       (22, 'RIGHT_SOLEUS');
 
 DELETE
 FROM exercise
