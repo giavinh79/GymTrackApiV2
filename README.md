@@ -62,8 +62,11 @@ User credentials can be found in `docker-compose.yml`.
     - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
         - Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
         - Settings -> Advanced Settings -> Allow auto-make to start even if...etc.
-- The authentication is currently being powered by Google Firebase
+- Authentication is currently being powered by Google Firebase
     - Ensure you create and setup different Firebase environments for dev vs. prod
+- Useful local development commands for database & cache
+    - `docker exec -it redis-container-name redis-cli -a your-password FLUSHALL` for clearing local Redis cache
+    - `mvn flyway:clean` to clear all PostgreSQL migrations (and thus delete all db data)
 
 ## Project Structure
 
