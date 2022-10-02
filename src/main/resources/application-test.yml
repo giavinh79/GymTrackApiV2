@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: GymTrack
+  cache:
+    type: redis
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: admin

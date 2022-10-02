@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class RequestThrottleFilter extends OncePerRequestFilter implements Filter {
-    private final static int MAX_REQUESTS_PER_SECOND = 5;
+    private static final int MAX_REQUESTS_PER_SECOND = 5;
 
-    private LoadingCache<String, Integer> requestCountsPerIpAddress;
+    private final LoadingCache<String, Integer> requestCountsPerIpAddress;
 
     public RequestThrottleFilter() {
         super();

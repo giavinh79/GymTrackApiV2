@@ -46,7 +46,7 @@ public class AuthFilter extends OncePerRequestFilter implements Filter {
         try {
             String authorizationHeader = request.getHeader("authorization");
 
-            if (authorizationHeader == null || authorizationHeader.equals("") || !authorizationHeader.contains("Bearer ")) {
+            if (authorizationHeader == null || !authorizationHeader.contains("Bearer ")) {
                 throw new AuthenticationException();
             }
 

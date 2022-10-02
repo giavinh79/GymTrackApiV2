@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +17,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExerciseValueTypeUnit {
+public class ExerciseValueTypeUnit implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 2855082313944168293L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

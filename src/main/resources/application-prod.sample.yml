@@ -8,10 +8,18 @@ server:
 spring:
   application:
     name: GymTrack
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60m
+  redis:
+    host: ip
+    port: 1234
+    password: pass
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: admin
-    password: admin
+    url: jdbc-url
+    username: user
+    password: pass
   jpa:
     database-platform: org.hibernate.diaclect.PostgreSQLDialect
     properties:
@@ -22,9 +30,9 @@ spring:
       ddl-auto: none
   flyway:
     enabled: true
-    url: 'jdbc:postgresql://localhost:5432/postgres'
-    user: admin
-    password: admin
+    url: 'jdbc-url'
+    user: user
+    password: pass
 
 management:
   endpoints:

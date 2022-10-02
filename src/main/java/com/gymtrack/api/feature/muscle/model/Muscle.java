@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +18,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Muscle {
+public class Muscle implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 8077599348592693194L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,7 @@ public class Muscle {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "musclesUsed")
-    private List<Exercise> exercisesApplicable;
+    private transient List<Exercise> exercisesApplicable;
 
     @Override
     public boolean equals(Object o) {

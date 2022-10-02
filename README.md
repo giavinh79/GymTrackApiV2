@@ -39,8 +39,8 @@ test@user:~$ cd db && docker compose up -d
 - A useful GUI tool for PostgreSQL [pgAdmin](https://www.pgadmin.org/) will run locally at: http://localhost:5050/
 - Redis will run locally at: http://localhost:6379
 
-To connect to the PostgreSQL instance from a DB GUI tool (like pgAdmin), create a new server and pass `postgres` as the network.
-User credentials can be found in `docker-compose.yml`.
+To connect to the PostgreSQL instance from a DB GUI tool (like pgAdmin), create a new server and pass `postgres` as the
+network. User credentials can be found in `docker-compose.yml`.
 
 **API**
 
@@ -91,11 +91,17 @@ PostgreSQL cloud instance.
 
 ## TO DOs development
 
-- Tech debt: Create join table `exercise_image` between `exercise`and `image` as right now, exercises can only support a
-  single image
-- Move UserRoutine controller location
-- Compress and then store exercise images on AWS S3 rather than use wiki URLs
-- Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)
+- Tech debt:
+    - Use GenericJackson2JsonRedisSerializer instead of manually implementing Serializable
+        - https://www.baeldung.com/spring-boot-redis-cache
+    - Create join table `exercise_image` between `exercise`and `image` as right now, exercises can only support a single
+      image - Move UserRoutine controller location - Compress and then store exercise images on AWS S3 rather than use
+      wiki URLs - Instead of defining exerciseValueTypeUnit one to many mapping as eager fetch type, create custom JPQL
+      @Query to fetch lazily loaded properties for /exercises HTTP GET
+      endpoint (https://stackoverflow.com/questions/15359306/how-to-fetch-fetchtype-lazy-associations-with-jpa-and-hibernate-in-a-spring-cont/15360333#15360333)
+    - Sync PostgreSQL DB sequences with Hibernate (https://thorben-janssen.com/hibernate-tips-use-custom-sequence/)
+- Improvements:
+    - Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)
 
 ## For fun
 

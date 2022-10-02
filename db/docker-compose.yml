@@ -1,4 +1,5 @@
-# For spinning up local postgres db
+# For spinning up local data stores & GUI DB tool (postgres, redis, and pgadmin)
+name: GymTrackDB
 
 services:
   postgres:
@@ -29,6 +30,16 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  cache:
+    container_name: redis
+    image: redis:7.0.5-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --save "" --appendonly no --loglevel warning --requirepass admin
+    # configure redis instance to have no persistence for now
+    volumes:
+      - cache:/data/redis
 
 networks:
   postgres:
@@ -37,3 +48,4 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  cache:

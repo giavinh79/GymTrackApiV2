@@ -15,10 +15,6 @@
     <description>GymTrack API</description>
     <properties>
         <java.version>17</java.version>
-        <flyway.user>admin</flyway.user>
-        <flyway.password>admin</flyway.password>
-        <flyway.baselineOnMigrate>true</flyway.baselineOnMigrate>
-        <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
     </properties>
     <dependencies>
         <dependency>
@@ -52,7 +48,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.10</version>
+            <version>1.6.11</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -85,6 +81,10 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>1.5.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
     </dependencies>
 

@@ -5,6 +5,14 @@ server:
 spring:
   application:
     name: GymTrack
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60m
+  redis:
+    host: localhost
+    port: 6379
+    password: admin
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: admin
@@ -24,6 +32,7 @@ spring:
     url: 'jdbc:postgresql://localhost:5432/postgres'
     user: admin
     password: admin
+    baseline-on-migrate: true
 
 management:
   info:

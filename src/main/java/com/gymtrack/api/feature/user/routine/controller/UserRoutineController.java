@@ -16,11 +16,11 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/user")
 public class UserRoutineController {
     private final UserRoutineServiceImpl userRoutineService;
 
-    @PutMapping("user/{userId}/routine")
+    @PutMapping("/{userId}/routine")
     public UserRoutineResponseDTO createUserRoutine(@PathVariable Integer userId,
                                                     @RequestBody UserRoutineRequestDTO userRoutineRequestDTO,
                                                     @RequestAttribute(value = "userContext") UserContext userContext) {
@@ -31,7 +31,7 @@ public class UserRoutineController {
         return userRoutineService.createUserRoutine(UserContextMapper.INSTANCE.userContextToUser(userContext), userRoutineRequestDTO);
     }
 
-    @GetMapping("user/{userId}/routines")
+    @GetMapping("/{userId}/routines")
     public List<UserRoutineResponseDTO> getUsersRoutines(@PathVariable Integer userId,
                                                          @RequestAttribute(value = "userContext") UserContext userContext) {
         if (!userContext.getId().equals(userId)) {
@@ -41,7 +41,7 @@ public class UserRoutineController {
         return userRoutineService.getUsersRoutinesById(UserContextMapper.INSTANCE.userContextToUser(userContext));
     }
 
-    @GetMapping("user/{userId}/routine/selected")
+    @GetMapping("/{userId}/routine/selected")
     public UserRoutineResponseDTO getSelectedUserRoutine(@PathVariable Integer userId,
                                                          @RequestAttribute(value = "userContext") UserContext userContext) {
         if (!userContext.getId().equals(userId)) {

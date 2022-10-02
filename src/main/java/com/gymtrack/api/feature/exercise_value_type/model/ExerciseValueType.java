@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +20,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name = "exercise_value_type")
-public class ExerciseValueType {
+public class ExerciseValueType implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 4068231476860236282L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +31,12 @@ public class ExerciseValueType {
     @Column(length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "exerciseValueType")
+    @OneToMany(mappedBy = "exerciseValueType", fetch = FetchType.EAGER)
     private List<ExerciseValueTypeUnit> exerciseValueTypeUnits;
 
     @JsonIgnore
     @OneToMany(mappedBy = "exerciseValueType")
-    private List<Exercise> exercise;
+    private transient List<Exercise> exercise;
 
     @Override
     public boolean equals(Object o) {
