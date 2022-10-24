@@ -1,322 +1,322 @@
 {
-	"info": {
-		"_postman_id": "20271d86-390c-4e38-bc00-7c6746b1dab4",
-		"name": "GymTrack API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "8343461"
-	},
-	"item": [
-		{
-			"name": "routines",
-			"item": [
-				{
-					"name": "getRoutines",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{GymTrack Firebase Auth Token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/api/v1/routines",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"routines"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteRoutine",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/api/v1/routines/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"routines",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getRoutine",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/api/v1/routines/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"routines",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "auth",
-			"item": [
-				{
-					"name": "signup",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"curtains1234@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3030/api/v1/auth/signup",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"signup"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "health",
-			"item": [
-				{
-					"name": "Health Check",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{GymTrack Firebase Auth Token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/api/v1/health",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"health"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiY3VydGFpbnMxMjM0QGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9neW10cmFjay1lNmE3NyIsImF1ZCI6Imd5bXRyYWNrLWU2YTc3IiwiYXV0aF90aW1lIjoxNjU2NzM1MjI5LCJ1c2VyX2lkIjoiU3dWNjZDUFFjaVZKcG5NUFo4ZXhYV25TcDNvMSIsInN1YiI6IlN3VjY2Q1BRY2lWSnBuTVBaOGV4WFduU3AzbzEiLCJpYXQiOjE2NTY3MzUyMjksImV4cCI6MTY1NjczODgyOSwiZW1haWwiOiJjdXJ0YWluczEyMzRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImN1cnRhaW5zMTIzNEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.mfh3G9aRZriFHHBP-RrqYyewJeNf1ro0LBwJlwB_H_tSPCObRVfKXutIEAyUAFeipMKZRcfIq32hewMwK3Yea-SZVmRY1THoY-fk5-S3945mtIK7WXL18GfWtNIYoDDLgElLXHfhfAeqdrKZb3osFqjNyfAO3zNz_IdQ1tEA_Y9uQldyNA1JBhMFfWIbB12Lr28VXcUhbow__msBmcJ4kHg64hcBBuEsSmEN20zHnNi7rVQpl_HPD3lFRB2YAbyoEKJV1jFmF2GcHHQew2IS2pwZJVp316k1zLq25bzAkgexSDjn7JuCOiimlxPH96G-qOIIAtM5D4kxZTuhQSF9gw",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "actuator",
-			"item": [
-				{
-					"name": "Health Check",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/actuator/health",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"actuator",
-								"health"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Info Check",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/actuator/info",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"actuator",
-								"info"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "exercise",
-			"item": [
-				{
-					"name": "getExercises",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{GymTrack Firebase Auth Token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3030/api/v1/exercises",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"exercises"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createUserRoutineExercise",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{GymTrack Firebase Auth Token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"day\": \"MONDAY\",\r\n    \"exerciseOrder\": 1,\r\n    \"sets\": [\r\n        {\r\n            \"numReps\": 10\r\n        },\r\n        {\r\n            \"numReps\": 10\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3030/api/v1/user/1/routine/1/exercise/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3030",
-							"path": [
-								"api",
-								"v1",
-								"user",
-								"1",
-								"routine",
-								"1",
-								"exercise",
-								"2"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "GymTrack Firebase Auth Token",
-			"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjJkMjNmMzc0MDI1ZWQzNTNmOTg0YjUxMWE3Y2NlNDlhMzFkMzFiZDIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoidGVzdGVyQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9neW10cmFjay1lNmE3NyIsImF1ZCI6Imd5bXRyYWNrLWU2YTc3IiwiYXV0aF90aW1lIjoxNjYzMjk5ODYyLCJ1c2VyX2lkIjoiMSIsInN1YiI6IjEiLCJpYXQiOjE2NjMyOTk4NjIsImV4cCI6MTY2MzMwMzQ2MiwiZW1haWwiOiJ0ZXN0ZXJAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInRlc3RlckBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.tk73EsDd_w72rZhL-LvAzw4j7m5Mo5IVMZEmL38elChdE0uppWDnMbNdAVTBz1X1mexFbFbMtxbBkeYQJcSmSIgCY9PE5LhAyE_xxSqC_HKFj-l9TUBooF6P-LJgmCLpVewHcXHQOFLLuMF_1tK_a2jZMLFlaO_KZbmCL4L3gXFuQpgM4X9r6pEgCOMEPi3JTiWu_p-cXxVklzdg9bHLsKbGN_qw0vBGLfe1tEdyW9UsiVEDdS8E83nwRkNRAwo5gDoaOG8OVEHhlTg_fpEojQsHHjhT9Dq6y73TIcvkB_OGrkeDR7KRMzPmOsu8-167x6VFMA3UlahR97S2LnC-1Q",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "20271d86-390c-4e38-bc00-7c6746b1dab4",
+    "name": "GymTrack API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "8343461"
+  },
+  "item": [
+    {
+      "name": "routines",
+      "item": [
+        {
+          "name": "getRoutines",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{GymTrack Firebase Auth Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/api/v1/routines",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "routines"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteRoutine",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/api/v1/routines/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "routines",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getRoutine",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/api/v1/routines/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "routines",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"curtains1234@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3030/api/v1/auth/signup",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{GymTrack Firebase Auth Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/api/v1/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiY3VydGFpbnMxMjM0QGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9neW10cmFjay1lNmE3NyIsImF1ZCI6Imd5bXRyYWNrLWU2YTc3IiwiYXV0aF90aW1lIjoxNjU2NzM1MjI5LCJ1c2VyX2lkIjoiU3dWNjZDUFFjaVZKcG5NUFo4ZXhYV25TcDNvMSIsInN1YiI6IlN3VjY2Q1BRY2lWSnBuTVBaOGV4WFduU3AzbzEiLCJpYXQiOjE2NTY3MzUyMjksImV4cCI6MTY1NjczODgyOSwiZW1haWwiOiJjdXJ0YWluczEyMzRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImN1cnRhaW5zMTIzNEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.mfh3G9aRZriFHHBP-RrqYyewJeNf1ro0LBwJlwB_H_tSPCObRVfKXutIEAyUAFeipMKZRcfIq32hewMwK3Yea-SZVmRY1THoY-fk5-S3945mtIK7WXL18GfWtNIYoDDLgElLXHfhfAeqdrKZb3osFqjNyfAO3zNz_IdQ1tEA_Y9uQldyNA1JBhMFfWIbB12Lr28VXcUhbow__msBmcJ4kHg64hcBBuEsSmEN20zHnNi7rVQpl_HPD3lFRB2YAbyoEKJV1jFmF2GcHHQew2IS2pwZJVp316k1zLq25bzAkgexSDjn7JuCOiimlxPH96G-qOIIAtM5D4kxZTuhQSF9gw",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "actuator",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/actuator/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Info Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/actuator/info",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "actuator",
+                "info"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "exercise",
+      "item": [
+        {
+          "name": "getExercises",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{GymTrack Firebase Auth Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3030/api/v1/exercises",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "exercises"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createUserRoutineExercise",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{GymTrack Firebase Auth Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"day\": \"MONDAY\",\r\n    \"exerciseOrder\": 1,\r\n    \"sets\": [\r\n        {\r\n            \"numReps\": 10\r\n        },\r\n        {\r\n            \"numReps\": 10\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3030/api/v1/user/1/routine/1/exercise/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3030",
+              "path": [
+                "api",
+                "v1",
+                "user",
+                "1",
+                "routine",
+                "1",
+                "exercise",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "GymTrack Firebase Auth Token",
+      "value": "user_jwt_token",
+      "type": "string"
+    }
+  ]
 }
