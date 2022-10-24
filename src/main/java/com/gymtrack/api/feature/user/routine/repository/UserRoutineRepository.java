@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRoutineRepository extends JpaRepository<UserRoutine, Integer> {
     List<UserRoutine> findAllByUserEquals(User user);
 
-    UserRoutine findUserRoutineByUserEqualsAndIsSelectedTrue(User user);
+    Optional<UserRoutine> findUserRoutineByUserIdEqualsAndIsSelectedTrue(Integer userId);
 }

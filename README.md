@@ -100,8 +100,12 @@ PostgreSQL cloud instance.
       @Query to fetch lazily loaded properties for /exercises HTTP GET
       endpoint (https://stackoverflow.com/questions/15359306/how-to-fetch-fetchtype-lazy-associations-with-jpa-and-hibernate-in-a-spring-cont/15360333#15360333)
     - Sync PostgreSQL DB sequences with Hibernate (https://thorben-janssen.com/hibernate-tips-use-custom-sequence/)
+    - Validation for all request DTOs
 - Improvements:
     - Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)
+    - More verbose API docs - https://www.baeldung.com/spring-rest-openapi-documentation
+    - Testing (maybe for testing with database look
+      into https://betterprogramming.pub/how-to-test-databases-easily-in-a-spring-boot-application-5ccdfbc6309f)
 
 ## For fun
 

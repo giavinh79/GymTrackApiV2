@@ -1,5 +1,6 @@
 package com.gymtrack.api.feature.exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gymtrack.api.feature.exercise_value_type.model.ExerciseValueType;
 import com.gymtrack.api.feature.image.model.Image;
 import com.gymtrack.api.feature.muscle.model.Muscle;
@@ -39,6 +40,7 @@ public class Exercise {
 
     private Integer creatorId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "exercise")
     private List<RoutineExercise> routineExercises;
 

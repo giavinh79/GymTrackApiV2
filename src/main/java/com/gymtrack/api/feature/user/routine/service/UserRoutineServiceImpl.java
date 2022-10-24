@@ -29,6 +29,15 @@ public class UserRoutineServiceImpl {
 
     private final Clock clock = Clock.systemUTC();
 
+    private void removeExistingSelectedRoutineIfExists(Integer userId) {
+        userRoutineRepository
+                .findUserRoutineByUserIdEqualsAndIsSelectedTrue(userId)
+                .ifPresent(selectedUserRoutine -> {
+                    selectedUserRoutine.setIsSelected(false);
+                    userRoutineRepository.save(selectedUserRoutine);
+                });
+    }
+
     @Transactional
     public UserRoutineResponseDTO createUserRoutine(User user, UserRoutineRequestDTO userRoutineRequestDTO) {
         Routine routineToCreate = Routine.builder()
@@ -42,6 +51,8 @@ public class UserRoutineServiceImpl {
 
         Routine savedRoutine = routineRepository.save(routineToCreate);
 
+        removeExistingSelectedRoutineIfExists(user.getId());
+
         UserRoutine userRoutineToCreate = UserRoutine.builder()
                 .id(new UserRoutineId(user.getId(), savedRoutine.getId()))
                 .user(user)
@@ -51,7 +62,6 @@ public class UserRoutineServiceImpl {
                 .build();
 
         UserRoutine createdUserRoutine = userRoutineRepository.save(userRoutineToCreate);
-
         return userRoutineMapper.userRoutineToUserRoutineDTO(createdUserRoutine);
     }
 
@@ -63,7 +73,12 @@ public class UserRoutineServiceImpl {
     }
 
     public UserRoutineResponseDTO getSelectedUserRoutine(User user) {
-        UserRoutine selectedUserRoutine = userRoutineRepository.findUserRoutineByUserEqualsAndIsSelectedTrue(user);
-        return userRoutineMapper.userRoutineToUserRoutineDTO(selectedUserRoutine);
+        UserRoutine selectedUserRoutine = userRoutineRepository
+                .findUserRoutineByUserIdEqualsAndIsSelectedTrue(user.getId())
+                .orElse(null);
+
+        return selectedUserRoutine == null
+                ? null
+                : userRoutineMapper.userRoutineToUserRoutineDTO(selectedUserRoutine);
     }
 }

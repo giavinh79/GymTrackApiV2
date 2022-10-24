@@ -175,13 +175,13 @@ VALUES (1, 2, 'SECONDS'),
 
 CREATE TABLE set
 (
-    id                       BIGSERIAL PRIMARY KEY,
-    num_reps                 int NOT NULL,
-    value                    int,
-    exercise_value_type      int NOT NULL,
-    exercise_value_type_unit int,
-    FOREIGN KEY (exercise_value_type) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
-    FOREIGN KEY (exercise_value_type_unit) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
+    id                          BIGSERIAL PRIMARY KEY,
+    num_reps                    int NOT NULL,
+    value                       int,
+    exercise_value_type_id      int NOT NULL,
+    exercise_value_type_unit_id int,
+    FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
+    FOREIGN KEY (exercise_value_type_unit_id) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
 );
 
 -- If no exercise_value_type_id, we'll default to the weight type
@@ -209,6 +209,7 @@ CREATE TABLE exercise_muscle
 );
 
 CREATE TYPE day_enum AS ENUM ('MONDAY', 'TUESDAY','WEDNESDAY','THURSDAY','FRIDAY', 'SATURDAY', 'SUNDAY');
+CREATE CAST (CHARACTER VARYING as day_enum) WITH INOUT AS IMPLICIT;
 CREATE TABLE routine_exercise
 (
     id             SERIAL PRIMARY KEY,
@@ -221,21 +222,12 @@ CREATE TABLE routine_exercise
 );
 CREATE INDEX day_idx ON routine_exercise (day);
 
-CREATE TABLE app_user_routine_exercise
+CREATE TABLE routine_exercise_set
 (
-    id          SERIAL PRIMARY KEY,
-    exercise_id int NOT NULL,
-    routine_id  int NOT NULL,
-    app_user_id int NOT NULL,
-    FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE,
-    FOREIGN KEY (app_user_id, routine_id) REFERENCES app_user_routine (app_user_id, routine_id) ON DELETE CASCADE
-);
-
-CREATE TABLE app_user_routine_exercise_set
-(
-    app_user_routine_exercise_id int NOT NULL,
-    set_id                       int NOT NULL,
-    FOREIGN KEY (app_user_routine_exercise_id) REFERENCES app_user_routine_exercise (id) ON DELETE CASCADE,
+    id                  SERIAL PRIMARY KEY,
+    routine_exercise_id int NOT NULL,
+    set_id              int NOT NULL,
+    FOREIGN KEY (routine_exercise_id) REFERENCES routine_exercise (id) ON DELETE CASCADE,
     FOREIGN KEY (set_id) REFERENCES set (id) ON DELETE CASCADE
 );
 

@@ -6,6 +6,10 @@ spring:
     name: GymTrack
   cache:
     type: redis
+  data:
+    redis:
+      repositories:
+        enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: admin

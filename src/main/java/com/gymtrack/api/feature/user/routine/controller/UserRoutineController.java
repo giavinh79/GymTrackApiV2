@@ -1,8 +1,8 @@
 package com.gymtrack.api.feature.user.routine.controller;
 
+import com.gymtrack.api.acl.AccessControlService;
 import com.gymtrack.api.context.UserContext;
 import com.gymtrack.api.context.UserContextMapper;
-import com.gymtrack.api.exception.AuthenticationException;
 import com.gymtrack.api.feature.user.routine.dto.UserRoutineRequestDTO;
 import com.gymtrack.api.feature.user.routine.dto.UserRoutineResponseDTO;
 import com.gymtrack.api.feature.user.routine.service.UserRoutineServiceImpl;
@@ -19,35 +19,27 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class UserRoutineController {
     private final UserRoutineServiceImpl userRoutineService;
+    private final AccessControlService accessControlService;
 
     @PutMapping("/{userId}/routine")
     public UserRoutineResponseDTO createUserRoutine(@PathVariable Integer userId,
                                                     @RequestBody UserRoutineRequestDTO userRoutineRequestDTO,
                                                     @RequestAttribute(value = "userContext") UserContext userContext) {
-        if (!userContext.getId().equals(userId)) {
-            throw new AuthenticationException();
-        }
-
+        accessControlService.validateAccessToUser(userContext, userId);
         return userRoutineService.createUserRoutine(UserContextMapper.INSTANCE.userContextToUser(userContext), userRoutineRequestDTO);
     }
 
     @GetMapping("/{userId}/routines")
     public List<UserRoutineResponseDTO> getUsersRoutines(@PathVariable Integer userId,
                                                          @RequestAttribute(value = "userContext") UserContext userContext) {
-        if (!userContext.getId().equals(userId)) {
-            throw new AuthenticationException();
-        }
-
+        accessControlService.validateAccessToUser(userContext, userId);
         return userRoutineService.getUsersRoutinesById(UserContextMapper.INSTANCE.userContextToUser(userContext));
     }
 
     @GetMapping("/{userId}/routine/selected")
     public UserRoutineResponseDTO getSelectedUserRoutine(@PathVariable Integer userId,
                                                          @RequestAttribute(value = "userContext") UserContext userContext) {
-        if (!userContext.getId().equals(userId)) {
-            throw new AuthenticationException();
-        }
-
+        accessControlService.validateAccessToUser(userContext, userId);
         return userRoutineService.getSelectedUserRoutine(UserContextMapper.INSTANCE.userContextToUser(userContext));
     }
 }

@@ -12,6 +12,10 @@ spring:
     type: redis
     redis:
       time-to-live: 60m
+  data:
+    redis:
+      repositories:
+        enabled: false
   redis:
     host: ip
     port: 1234

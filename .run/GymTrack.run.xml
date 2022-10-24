@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="GymTrack" type="SpringBootApplicationConfigurationType"
+                   factoryName="Spring Boot">
+        <module name="gymtrack-api-v2"/>
+        <option name="SPRING_BOOT_MAIN_CLASS" value="com.gymtrack.api.GymTrackApplication"/>
+        <option name="ALTERNATIVE_JRE_PATH"/>
+        <option name="SHORTEN_COMMAND_LINE" value="NONE"/>
+        <envs>
+            <env name="GOOGLE_APPLICATION_CREDENTIALS" value="Absolute\Path\To\your-firebase-key.json"/>
+        </envs>
+        <method v="2">
+            <option name="Make" enabled="true"/>
+        </method>
+    </configuration>
+</component>
