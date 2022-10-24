@@ -34,6 +34,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Project Specific ###
-GymTrack.run.xml

@@ -55,9 +55,12 @@ network. User credentials can be found in `docker-compose.yml`.
 ### Development
 
 - Using [IntelliJ](https://www.jetbrains.com/idea/) IDE
-    - [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint)
-        - Configure rules in Settings -> Tools -> SonarLint -> Rules
-        - Rules I've disabled: @TODO warnings/errors
+    - **Plugins**
+        - [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint)
+            - Configure rules in Settings -> Tools -> SonarLint -> Rules
+            - Rules I've disabled:
+                - @TODO warnings/errors
+        - [String Manipulation](https://plugins.jetbrains.com/plugin/2162-string-manipulation)
     - [Format code on save (rearrange, reformat, optimize imports)](https://stackoverflow.com/a/68629786)
     - [Configure hot reloading](https://stackoverflow.com/questions/33349456/how-to-make-auto-reload-with-spring-boot-on-idea-intellij)
         - Settings -> Build, Execution, Deployment -> Compiler -> Build project automatically
