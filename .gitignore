@@ -4,7 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-
 ### CONFIG ###
 application-prod.yml
 
@@ -35,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Project Specific ###
+GymTrack.run.xml

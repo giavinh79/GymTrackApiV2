@@ -24,13 +24,8 @@ public class AccessControlService {
             return false;
         }
 
-        Optional<Routine> routine = routineRepository.findById(routineId);
-
-        if (routine.isEmpty()) {
-            throw new NotFoundException("Routine was not found");
-        }
-
-        return routine.get().getCreatorId().equals(userContext.getId());
+        Routine routine = routineRepository.findById(routineId).orElseThrow(() -> new NotFoundException("Routine was not found"));
+        return routine.getCreatorId().equals(userContext.getId());
     }
 
     public void validateAccessToUser(UserContext userContext, Integer userId) {
