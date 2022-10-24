@@ -9,3 +9,7 @@ production purposes.
 
 Import this collection into [Postman](https://www.postman.com/product/rest-client/) and fill in all values for the
 variables in this collection (i.e. like `GymTrack Firebase Auth Token`).
+
+## Variables
+
+`GymTrack Firebase Auth Token`: This is just the temporary JWT token for the user you are trying to authenticate as.
