@@ -16,15 +16,14 @@ public class WorkoutService {
                 .sorted(Comparator.comparing(RoutineExercise::getExerciseOrder))
                 .toList();
 
-        Map<String, List<Exercise>> map = new HashMap<>(Map.ofEntries(
-                new AbstractMap.SimpleEntry<>(Day.MONDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.TUESDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.WEDNESDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.THURSDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.FRIDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.SATURDAY.name(), Collections.emptyList()),
-                new AbstractMap.SimpleEntry<>(Day.SUNDAY.name(), Collections.emptyList())
-        ));
+        Map<String, List<Exercise>> map = new HashMap<>();
+        map.put(Day.MONDAY.name(), new ArrayList<>());
+        map.put(Day.TUESDAY.name(), new ArrayList<>());
+        map.put(Day.WEDNESDAY.name(), new ArrayList<>());
+        map.put(Day.THURSDAY.name(), new ArrayList<>());
+        map.put(Day.FRIDAY.name(), new ArrayList<>());
+        map.put(Day.SATURDAY.name(), new ArrayList<>());
+        map.put(Day.SUNDAY.name(), new ArrayList<>());
 
         for (RoutineExercise routineExercise : sortedRoutineExercises) {
             Exercise exercise = routineExercise.getExercise();
