@@ -49,7 +49,6 @@ public class UserRoutineExerciseSetServiceImpl {
         return newSet;
     }
 
-    @Transactional
     public Set updateUserRoutineExerciseSet(Integer routineId, Integer exerciseId, Integer setId, Set setToUpdate) {
         RoutineExercise routineExercise = getRoutineExercise(routineId, exerciseId);
         boolean setExistsInRoutine = routineExercise.getSets().stream().anyMatch(set -> set.getId().equals(setId));
