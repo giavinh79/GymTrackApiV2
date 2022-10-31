@@ -8,6 +8,7 @@ import com.gymtrack.api.feature.set.model.Set;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -39,7 +40,7 @@ public class RoutineExercise {
             joinColumns = @JoinColumn(name = "routine_exercise_id"),
             inverseJoinColumns = @JoinColumn(name = "set_id")
     )
-    private List<Set> sets;
+    private List<Set> sets = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(length = 9)
