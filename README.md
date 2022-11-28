@@ -1,6 +1,4 @@
-    @Column(insertable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;# GymTrack Spring Boot REST API
+# GymTrack Spring Boot REST API
 
 ## Description
 
