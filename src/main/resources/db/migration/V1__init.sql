@@ -176,10 +176,11 @@ VALUES (1, 2, 'SECONDS'),
 CREATE TABLE set
 (
     id                          BIGSERIAL PRIMARY KEY,
-    num_reps                    int NOT NULL,
+    num_reps                    int                                   NOT NULL,
     value                       int,
-    exercise_value_type_id      int NOT NULL,
+    exercise_value_type_id      int                                   NOT NULL,
     exercise_value_type_unit_id int,
+    created_at                  timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY (exercise_value_type_id) REFERENCES exercise_value_type (id) ON DELETE SET NULL,
     FOREIGN KEY (exercise_value_type_unit_id) REFERENCES exercise_value_type_unit (id) ON DELETE SET NULL
 );
@@ -235,12 +236,12 @@ CREATE TABLE routine_exercise_set
 -- Create session/workout tables
 CREATE TABLE session_log
 (
-    id            BIGSERIAL PRIMARY KEY,
-    routine_id    int                                   NOT NULL,
-    app_user_id   int                                   NOT NULL,
-    start_time    timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    end_time      timestamptz,
-    length_in_min decimal                               NOT NULL,
+    id          BIGSERIAL PRIMARY KEY,
+    routine_id  int                                   NOT NULL,
+    app_user_id int                                   NOT NULL,
+    start_time  timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    end_time    timestamptz,
+    created_at  timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
     FOREIGN KEY (routine_id) REFERENCES routine (id) ON DELETE CASCADE,
     FOREIGN KEY (app_user_id) REFERENCES app_user (id) ON DELETE CASCADE
 );
@@ -252,7 +253,6 @@ CREATE TABLE session_exercise_log
     session_log_id int                                   NOT NULL,
     start_time     timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
     end_time       timestamptz,
-    length_in_min  decimal                               NOT NULL,
     num_sets       int                                   NOT NULL,
     FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE,
     FOREIGN KEY (session_log_id) REFERENCES session_log (id) ON DELETE CASCADE

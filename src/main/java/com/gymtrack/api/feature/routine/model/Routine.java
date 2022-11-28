@@ -2,6 +2,7 @@ package com.gymtrack.api.feature.routine.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
+import com.gymtrack.api.feature.routine_session.session_log.model.SessionLog;
 import com.gymtrack.api.feature.user_routine.model.UserRoutine;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -60,6 +61,9 @@ public class Routine {
 
     @OneToMany(mappedBy = "routine")
     private List<RoutineExercise> routineExercises = new ArrayList<>();
+
+    @OneToMany(mappedBy = "routine")
+    private List<SessionLog> routineSessionLogs = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

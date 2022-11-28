@@ -6,7 +6,8 @@
         <option name="ALTERNATIVE_JRE_PATH"/>
         <option name="SHORTEN_COMMAND_LINE" value="NONE"/>
         <envs>
-            <env name="GOOGLE_APPLICATION_CREDENTIALS" value="Absolute\Path\To\your-firebase-key.json"/>
+            <env name="GOOGLE_APPLICATION_CREDENTIALS"
+                 value="C:\Users\Giavinh\Documents\Projects\gymtrack-e6a77-firebase-adminsdk-h0arx-ab393607a2.json"/>
         </envs>
         <method v="2">
             <option name="Make" enabled="true"/>

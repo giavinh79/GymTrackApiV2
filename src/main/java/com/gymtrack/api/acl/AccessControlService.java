@@ -8,8 +8,6 @@ import com.gymtrack.api.feature.routine.repository.RoutineRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @AllArgsConstructor
 @Service
 public class AccessControlService {
@@ -19,12 +17,11 @@ public class AccessControlService {
         return userContext.getId().equals((userId));
     }
 
-    private boolean canAccessRoutine(UserContext userContext, Integer userId, Integer routineId) {
-        if (!userContext.getId().equals(userId)) {
+    private boolean canAccessRoutine(UserContext userContext, Integer userId, Routine routine) {
+        if (!canAccessUser(userContext, userId)) {
             return false;
         }
 
-        Routine routine = routineRepository.findById(routineId).orElseThrow(() -> new NotFoundException("Routine was not found"));
         return routine.getCreatorId().equals(userContext.getId());
     }
 
@@ -34,9 +31,13 @@ public class AccessControlService {
         }
     }
 
-    public void validateAccessToRoutine(UserContext userContext, Integer userId, Integer routineId) {
-        if (!canAccessRoutine(userContext, userId, routineId)) {
+    public Routine validateAccessToRoutine(UserContext userContext, Integer userId, Integer routineId) {
+        Routine routine = routineRepository.findById(routineId).orElseThrow(() -> new NotFoundException("Routine was not found"));
+
+        if (!canAccessRoutine(userContext, userId, routine)) {
             throw new ForbiddenException();
         }
+
+        return routine;
     }
 }

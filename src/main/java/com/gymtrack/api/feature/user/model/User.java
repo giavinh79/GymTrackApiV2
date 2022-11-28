@@ -1,12 +1,14 @@
 package com.gymtrack.api.feature.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.gymtrack.api.feature.routine_session.session_log.model.SessionLog;
 import com.gymtrack.api.feature.user_routine.model.UserRoutine;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,7 +54,10 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user")
-    private List<UserRoutine> userRoutines;
+    private List<UserRoutine> userRoutines = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<SessionLog> routineSessionLogs = new ArrayList<>();
 
     @Transient
     public int getAge() {

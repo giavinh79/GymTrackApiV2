@@ -1,4 +1,6 @@
-# GymTrack Spring Boot REST API
+    @Column(insertable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;# GymTrack Spring Boot REST API
 
 ## Description
 
@@ -104,6 +106,10 @@ PostgreSQL cloud instance.
       endpoint (https://stackoverflow.com/questions/15359306/how-to-fetch-fetchtype-lazy-associations-with-jpa-and-hibernate-in-a-spring-cont/15360333#15360333)
     - Sync PostgreSQL DB sequences with Hibernate (https://thorben-janssen.com/hibernate-tips-use-custom-sequence/)
     - Validation for all request DTOs
+    - Go through dates and see which LocalDateTime types would be better suited as ZonedDateTime (or maybe would be
+      better to use Instant which is based on UTC)
+        - consider creation timestamps in db
+    - Do I really need ServiceImpl and interfaces?
 - Improvements:
     - Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)
     - More verbose API docs - https://www.baeldung.com/spring-rest-openapi-documentation

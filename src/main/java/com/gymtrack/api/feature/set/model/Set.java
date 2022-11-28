@@ -1,8 +1,10 @@
 package com.gymtrack.api.feature.set.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Builder
@@ -25,6 +27,10 @@ public class Set {
     private Integer exerciseValueTypeId;
 
     private Integer exerciseValueTypeUnitId;
+
+    @Column(insertable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {
