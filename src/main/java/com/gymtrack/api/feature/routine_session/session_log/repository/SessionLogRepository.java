@@ -13,8 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface SessionLogRepository extends JpaRepository<SessionLog, Integer> {
-
-
     List<SessionLog> findAllByUserEqualsAndRoutineEquals(User user, Routine routine);
 
     @Query(value = "SELECT * FROM session_log WHERE routine_id = :routineId AND app_user_id = :userId AND end_time IS NULL LIMIT 1", nativeQuery = true)

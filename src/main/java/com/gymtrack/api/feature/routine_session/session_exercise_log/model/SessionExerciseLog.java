@@ -42,6 +42,11 @@ public class SessionExerciseLog {
     )
     private List<Set> sets = new ArrayList<>();
 
+    public SessionExerciseLog(Exercise exercise, SessionLog sessionLog) {
+        this.exercise = exercise;
+        this.sessionLog = sessionLog;
+    }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();
