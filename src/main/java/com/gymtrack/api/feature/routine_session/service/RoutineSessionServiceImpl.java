@@ -66,7 +66,7 @@ public class RoutineSessionServiceImpl {
     }
 
     @Transactional
-    public Set addSetToRoutineSession(Routine routine, Integer userId, RoutineSessionSetRequestDTO routineSessionSetRequestDTO) {
+    public SessionExerciseLog addSetToRoutineSession(Routine routine, Integer userId, RoutineSessionSetRequestDTO routineSessionSetRequestDTO) {
         SessionLog sessionLog = sessionLogRepository.findActiveRoutineSessionLog(userId, routine.getId())
                 .orElseThrow(() -> new NotFoundException(String.format("Active routine session was not found for user %d", userId)));
 
@@ -88,7 +88,6 @@ public class RoutineSessionServiceImpl {
         }
 
         sessionExerciseLog.getSets().add(savedSet);
-        sessionExerciseLogRepository.save(sessionExerciseLog);
-        return savedSet;
+        return sessionExerciseLogRepository.save(sessionExerciseLog);
     }
 }

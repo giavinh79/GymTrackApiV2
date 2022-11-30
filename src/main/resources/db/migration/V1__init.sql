@@ -249,11 +249,8 @@ CREATE TABLE session_log
 CREATE TABLE session_exercise_log
 (
     id             BIGSERIAL PRIMARY KEY,
-    exercise_id    int                                   NOT NULL,
-    session_log_id int                                   NOT NULL,
-    start_time     timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    end_time       timestamptz,
-    num_sets       int                                   NOT NULL,
+    exercise_id    int NOT NULL,
+    session_log_id int NOT NULL,
     FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE,
     FOREIGN KEY (session_log_id) REFERENCES session_log (id) ON DELETE CASCADE
 );

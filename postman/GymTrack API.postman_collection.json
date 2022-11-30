@@ -492,6 +492,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "finishRoutineSessionSet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{GymTrack Firebase Auth Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"exerciseId\": 1,\r\n    \"set\": {\r\n        \"numReps\": 10,\r\n        \"value\": 55,\r\n        \"exerciseValueTypeId\": 1,\r\n        \"exerciseValueTypeUnitId\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3030/api/v1/routine/1/session/exercise/set",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"routine",
+								"1",
+								"session",
+								"exercise",
+								"set"
+							]
+						},
+						"description": "Include `sessionExerciseLogId` if adding set to an existing exercise in the active routine session."
+					},
+					"response": []
 				}
 			]
 		}
