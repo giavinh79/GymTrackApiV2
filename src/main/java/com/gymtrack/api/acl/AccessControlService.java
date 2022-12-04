@@ -25,6 +25,10 @@ public class AccessControlService {
         return routine.getCreatorId().equals(userContext.getId());
     }
 
+    private boolean canAccessRoutine(Integer userId, Routine routine) {
+        return routine.getCreatorId().equals(userId);
+    }
+
     public void validateAccessToUser(UserContext userContext, Integer userId) {
         if (!canAccessUser(userContext, userId)) {
             throw new ForbiddenException();
@@ -35,6 +39,16 @@ public class AccessControlService {
         Routine routine = routineRepository.findById(routineId).orElseThrow(() -> new NotFoundException("Routine was not found"));
 
         if (!canAccessRoutine(userContext, userId, routine)) {
+            throw new ForbiddenException();
+        }
+
+        return routine;
+    }
+
+    public Routine validateAccessToRoutine(UserContext userContext, Integer routineId) {
+        Routine routine = routineRepository.findById(routineId).orElseThrow(() -> new NotFoundException("Routine was not found"));
+
+        if (!canAccessRoutine(userContext.getId(), routine)) {
             throw new ForbiddenException();
         }
 

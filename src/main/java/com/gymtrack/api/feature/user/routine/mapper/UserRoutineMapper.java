@@ -33,7 +33,6 @@ public class UserRoutineMapper {
         userRoutineResponseDTO.setRating((routine.getRating()));
         userRoutineResponseDTO.setPublicId((routine.getPublicId()));
         userRoutineResponseDTO.setNumTimesCopied((routine.getNumTimesCopied()));
-
         userRoutineResponseDTO.setWorkout(workoutService.createWorkout(routine.getRoutineExercises()));
 
         return userRoutineResponseDTO;

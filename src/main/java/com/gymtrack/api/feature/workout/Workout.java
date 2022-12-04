@@ -1,6 +1,6 @@
 package com.gymtrack.api.feature.workout;
 
-import com.gymtrack.api.feature.exercise.model.Exercise;
+import com.gymtrack.api.feature.routine_exercise.dto.RoutineExerciseResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class Workout {
-    private List<Exercise> monday;
-    private List<Exercise> tuesday;
-    private List<Exercise> wednesday;
-    private List<Exercise> thursday;
-    private List<Exercise> friday;
-    private List<Exercise> saturday;
-    private List<Exercise> sunday;
+    private List<RoutineExerciseResponseDTO> monday;
+    private List<RoutineExerciseResponseDTO> tuesday;
+    private List<RoutineExerciseResponseDTO> wednesday;
+    private List<RoutineExerciseResponseDTO> thursday;
+    private List<RoutineExerciseResponseDTO> friday;
+    private List<RoutineExerciseResponseDTO> saturday;
+    private List<RoutineExerciseResponseDTO> sunday;
 }

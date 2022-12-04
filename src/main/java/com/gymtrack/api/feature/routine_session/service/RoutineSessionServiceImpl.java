@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -34,8 +33,7 @@ public class RoutineSessionServiceImpl {
     private final Clock clock = Clock.systemUTC();
 
     private boolean existsActiveRoutineSession(Integer userId, Integer routineId) {
-        Optional<SessionLog> sessionLog = sessionLogRepository.findActiveRoutineSessionLog(userId, routineId);
-        return sessionLog.isPresent();
+        return sessionLogRepository.findActiveRoutineSessionLog(userId, routineId).isPresent();
     }
 
     public void validateNoActiveRoutineSession(Integer userId, Routine routine) {
@@ -72,9 +70,6 @@ public class RoutineSessionServiceImpl {
 
         Exercise exercise = exerciseRepository.findById(routineSessionSetRequestDTO.exerciseId()).orElseThrow(NotFoundException::new);
 
-        Set set = SetMapper.INSTANCE.setRequestDTOToSet(routineSessionSetRequestDTO.set());
-        Set savedSet = setRepository.save(set);
-
         SessionExerciseLog sessionExerciseLog;
 
         if (routineSessionSetRequestDTO.sessionExerciseLogId() != null) {
@@ -87,7 +82,8 @@ public class RoutineSessionServiceImpl {
             sessionExerciseLog = sessionExerciseLogRepository.save(new SessionExerciseLog(exercise, sessionLog));
         }
 
-        sessionExerciseLog.getSets().add(savedSet);
+        Set set = SetMapper.INSTANCE.setRequestDTOToSet(routineSessionSetRequestDTO.set());
+        sessionExerciseLog.getSets().add(setRepository.save(set));
         return sessionExerciseLogRepository.save(sessionExerciseLog);
     }
 }

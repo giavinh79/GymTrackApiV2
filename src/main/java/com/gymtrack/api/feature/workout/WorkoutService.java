@@ -2,7 +2,10 @@ package com.gymtrack.api.feature.workout;
 
 import com.gymtrack.api.enums.Day;
 import com.gymtrack.api.feature.exercise.model.Exercise;
+import com.gymtrack.api.feature.routine_exercise.dto.RoutineExerciseResponseDTO;
+import com.gymtrack.api.feature.routine_exercise.mapper.RoutineExerciseMapper;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
+import com.gymtrack.api.feature.set.mapper.SetMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +14,12 @@ import java.util.*;
 @Slf4j
 @Component
 public class WorkoutService {
-    private Map<String, List<Exercise>> createDayToExercisesWorkoutMap(List<RoutineExercise> routineExercises) {
+    private Map<String, List<RoutineExerciseResponseDTO>> createDayToExercisesWorkoutMap(List<RoutineExercise> routineExercises) {
         List<RoutineExercise> sortedRoutineExercises = routineExercises.stream()
                 .sorted(Comparator.comparing(RoutineExercise::getExerciseOrder))
                 .toList();
 
-        Map<String, List<Exercise>> map = new HashMap<>();
+        Map<String, List<RoutineExerciseResponseDTO>> map = new HashMap<>();
         map.put(Day.MONDAY.name(), new ArrayList<>());
         map.put(Day.TUESDAY.name(), new ArrayList<>());
         map.put(Day.WEDNESDAY.name(), new ArrayList<>());
@@ -29,14 +32,18 @@ public class WorkoutService {
             Exercise exercise = routineExercise.getExercise();
             Day day = routineExercise.getDay();
 
-            List<Exercise> exercises = map.get((day.name()));
+            List<RoutineExerciseResponseDTO> exercises = map.get((day.name()));
 
             if (exercises == null) {
                 log.error("Invalid day key");
                 return map;
             }
 
-            exercises.add(exercise);
+            RoutineExerciseResponseDTO routineExerciseResponseDTO = RoutineExerciseMapper.INSTANCE.exerciseToRoutineExerciseResponseDTO(exercise);
+            routineExerciseResponseDTO.setSets(routineExercise.getSets().stream().map(SetMapper.INSTANCE::setToSetResponseDTO).toList());
+            routineExerciseResponseDTO.setExerciseOrder(routineExercise.getExerciseOrder());
+
+            exercises.add(routineExerciseResponseDTO);
             map.put(day.name(), exercises);
         }
 
@@ -44,7 +51,7 @@ public class WorkoutService {
     }
 
     public Workout createWorkout(List<RoutineExercise> routineExercises) {
-        Map<String, List<Exercise>> dayToExercisesMap = createDayToExercisesWorkoutMap((routineExercises));
+        Map<String, List<RoutineExerciseResponseDTO>> dayToExercisesMap = createDayToExercisesWorkoutMap((routineExercises));
 
         return Workout.builder()
                 .monday(dayToExercisesMap.get(Day.MONDAY.name()))

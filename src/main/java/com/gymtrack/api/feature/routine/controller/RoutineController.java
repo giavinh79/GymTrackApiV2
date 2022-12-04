@@ -1,7 +1,7 @@
 package com.gymtrack.api.feature.routine.controller;
 
+import com.gymtrack.api.acl.AccessControlService;
 import com.gymtrack.api.context.UserContext;
-import com.gymtrack.api.exception.AuthenticationException;
 import com.gymtrack.api.feature.routine.model.Routine;
 import com.gymtrack.api.feature.routine.service.RoutineService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/routines")
 public class RoutineController {
     private final RoutineService routineService;
+    private final AccessControlService accessControlService;
 
     //    @GetMapping
     public Page<Routine> getRoutines() {
@@ -26,24 +27,15 @@ public class RoutineController {
         return routineService.getRoutines(offset);
     }
 
-    @GetMapping("{id}")
-    public Routine getRoutine(@PathVariable Integer id, @RequestAttribute(value = "userContext") UserContext user) {
-        Routine routine = routineService.getRoutine(id);
-        // @TODO if super-admin, can override + create validation/ACL class/layer
-        if (routine.getCreatorId().equals(user.getId())) {
-            return routine;
-        }
-
-        return null;
+    @GetMapping("{routineId}")
+    public Routine getRoutine(@PathVariable Integer routineId, @RequestAttribute(value = "userContext") UserContext userContext) {
+        accessControlService.validateAccessToRoutine(userContext, routineId);
+        return routineService.getRoutine(routineId);
     }
 
-    @DeleteMapping("{id}")
-    public Integer deleteRoutine(@PathVariable Integer id, @RequestAttribute(value = "userContext") UserContext user) {
-        Routine routine = routineService.getRoutine(id);
-        // @TODO if super-admin, can override
-        if (routine.getCreatorId().equals(user.getId())) {
-            throw new AuthenticationException();
-        }
-        return routineService.deleteRoutine(id);
+    @DeleteMapping("{routineId}")
+    public Integer deleteRoutine(@PathVariable Integer routineId, @RequestAttribute(value = "userContext") UserContext userContext) {
+        accessControlService.validateAccessToRoutine(userContext, routineId);
+        return routineService.deleteRoutine(routineId);
     }
 }
