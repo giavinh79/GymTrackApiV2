@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "20271d86-390c-4e38-bc00-7c6746b1dab4",
 		"name": "GymTrack API",
+		"description": "This is a Postman collection for the GymTrack Spring Boot REST API. The purpose of this collection is to conveniently provide easy access (for testing HTTP requests & responses) to all the endpoints exposed by the server.\n\nMake sure to configure the `variables` section of the collection (i.e. providing a JWT token value for the user you want to simulate interacting with the API).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "8343461"
 	},
@@ -65,6 +66,16 @@
 				{
 					"name": "getRoutine",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{GymTrack Firebase Auth Token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -79,6 +90,40 @@
 								"v1",
 								"routines",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSelectedRoutine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{GymTrack Firebase Auth Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3030/api/v1/user/1/routine/selected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3030",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"1",
+								"routine",
+								"selected"
 							]
 						}
 					},
@@ -217,14 +262,7 @@
 					"name": "getExercises",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{GymTrack Firebase Auth Token}}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
