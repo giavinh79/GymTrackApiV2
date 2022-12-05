@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @Service
@@ -20,7 +20,7 @@ public class UserServiceImpl {
     }
 
     public User createUser(String email) {
-        LocalDateTime now = LocalDateTime.now(clock);
+        OffsetDateTime now = OffsetDateTime.now(clock);
 
         User user = User.builder()
                 .email(email)

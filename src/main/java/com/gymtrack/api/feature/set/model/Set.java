@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Builder
@@ -30,7 +30,7 @@ public class Set {
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {

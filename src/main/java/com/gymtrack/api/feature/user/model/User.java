@@ -7,7 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,22 +40,24 @@ public class User {
     private String lastLoggedInIp;
 
     @Column
-    private LocalDateTime lastLoggedInDate;
+    private OffsetDateTime lastLoggedInDate;
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Column
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 
     @Column
-    private LocalDateTime deletedAt;
+    private OffsetDateTime deletedAt;
 
+    @Builder.Default
     @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<UserRoutine> userRoutines = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<SessionLog> routineSessionLogs = new ArrayList<>();
 

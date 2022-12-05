@@ -67,6 +67,8 @@ network. User credentials can be found in `docker-compose.yml`.
         - Settings -> Advanced Settings -> Allow auto-make to start even if...etc.
 - Authentication is currently being powered by Google Firebase
     - Ensure you create and setup different Firebase environments for dev vs. prod
+- MapStruct is used for transforming entities from one type to another
+    - Rebuild project / Recompile `Mapper` file if `MapStruct` did not automatically update yet
 - Useful local development commands for database & cache
     - `docker exec -it redis-container-name redis-cli -a your-password FLUSHALL` for clearing local Redis cache
     - `mvn flyway:clean` to clear all PostgreSQL migrations (and thus delete all db data)
@@ -104,9 +106,6 @@ PostgreSQL cloud instance.
       endpoint (https://stackoverflow.com/questions/15359306/how-to-fetch-fetchtype-lazy-associations-with-jpa-and-hibernate-in-a-spring-cont/15360333#15360333)
     - Sync PostgreSQL DB sequences with Hibernate (https://thorben-janssen.com/hibernate-tips-use-custom-sequence/)
     - Validation for all request DTOs
-    - Go through dates and see which LocalDateTime types would be better suited as ZonedDateTime (or maybe would be
-      better to use Instant which is based on UTC)
-        - consider creation timestamps in db
     - Do I really need ServiceImpl and interfaces?
 - Improvements:
     - Maybe use something like `hashid` - (convert ids to more obscured but decryptable integer)

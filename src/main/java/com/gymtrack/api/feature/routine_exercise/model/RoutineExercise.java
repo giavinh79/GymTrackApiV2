@@ -34,6 +34,7 @@ public class RoutineExercise {
 
     private Integer exerciseOrder;
 
+    @Builder.Default
     @OneToMany
     @JoinTable(
             name = "routine_exercise_set",

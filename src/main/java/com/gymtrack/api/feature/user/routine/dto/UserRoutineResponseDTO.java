@@ -4,7 +4,7 @@ import com.gymtrack.api.feature.workout.Workout;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class UserRoutineResponseDTO {
     private String name;
     private String description;
     private Double rating;
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
     private Integer numTimesCopied;
     private Boolean isSelected;
 

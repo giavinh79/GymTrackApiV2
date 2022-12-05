@@ -3,7 +3,7 @@ package com.gymtrack.api.context;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Builder
 @Getter
@@ -20,5 +20,5 @@ public class UserContext {
     private String firstName;
     private String lastName;
     private String email;
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 }

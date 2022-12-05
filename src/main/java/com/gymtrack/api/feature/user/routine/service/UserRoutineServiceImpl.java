@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class UserRoutineServiceImpl {
                 .user(user)
                 .routine(savedRoutine)
                 .isSelected(true)
-                .updatedAt(LocalDateTime.now(clock))
+                .updatedAt(OffsetDateTime.now(clock))
                 .build();
 
         UserRoutine createdUserRoutine = userRoutineRepository.save(userRoutineToCreate);

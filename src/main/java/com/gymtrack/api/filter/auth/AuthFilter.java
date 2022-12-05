@@ -79,7 +79,8 @@ public class AuthFilter extends OncePerRequestFilter implements Filter {
 
         List<String> acceptedRegexPaths = Arrays.asList(
                 "/actuator/.*",
-                "/api/.*/auth/signup"
+                "/api/.*/auth/signup",
+                "/api/.*/exercises"
         );
 
         return acceptedRegexPaths.stream().anyMatch(path::matches);

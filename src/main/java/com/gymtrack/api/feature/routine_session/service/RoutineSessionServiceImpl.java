@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @Service
@@ -49,7 +49,7 @@ public class RoutineSessionServiceImpl {
                 .builder()
                 .routine(routine)
                 .user(user)
-                .startTime(LocalDateTime.now(clock))
+                .startTime(OffsetDateTime.now(clock))
                 .build();
 
         return sessionLogRepository.save(newRoutineSessionLog);
@@ -59,7 +59,7 @@ public class RoutineSessionServiceImpl {
         SessionLog sessionLog = sessionLogRepository.findActiveRoutineSessionLog(userId, routine.getId())
                 .orElseThrow(() -> new NotFoundException(String.format("Active routine session was not found for user %d", userId)));
 
-        sessionLog.setEndTime(LocalDateTime.now(clock));
+        sessionLog.setEndTime(OffsetDateTime.now(clock));
         return sessionLogRepository.save(sessionLog);
     }
 

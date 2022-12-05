@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Builder
 @Entity
@@ -24,7 +24,7 @@ public class UserRoutine {
     @MapsId("userId")
     @JoinColumn(name = "app_user_id")
     private User user;
-    
+
     @ManyToOne
     @MapsId("routineId")
     @JoinColumn(name = "routine_id")
@@ -34,11 +34,11 @@ public class UserRoutine {
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 
     @Override
     public int hashCode() {

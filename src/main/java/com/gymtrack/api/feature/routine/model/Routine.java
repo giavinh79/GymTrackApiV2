@@ -8,7 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,13 +41,13 @@ public class Routine {
 
     @Column(insertable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    private OffsetDateTime deletedAt;
 
     @Column(name = "num_times_copied", nullable = false, columnDefinition = "integer default 0")
     private Integer numTimesCopied;
@@ -55,13 +55,16 @@ public class Routine {
     @Column(name = "base_routine_id")
     private Integer baseRoutineId;
 
+    @Builder.Default
     @JsonBackReference
     @OneToMany(mappedBy = "routine")
     private List<UserRoutine> userRoutines = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "routine")
     private List<RoutineExercise> routineExercises = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "routine")
     private List<SessionLog> routineSessionLogs = new ArrayList<>();
 
