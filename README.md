@@ -112,6 +112,10 @@ PostgreSQL cloud instance.
     - More verbose API docs - https://www.baeldung.com/spring-rest-openapi-documentation
     - Testing (maybe for testing with database look
       into https://betterprogramming.pub/how-to-test-databases-easily-in-a-spring-boot-application-5ccdfbc6309f)
+    - Monitoring (DataDog vs. New Relic vs. HoneyComb.IO vs. Prometheus + Grafana + Loki)
+        - Possible useful references
+            - https://reflectoring.io/spring-boot-tracing
+            - https://grafana.com/blog/2022/05/04/how-to-capture-spring-boot-metrics-with-the-opentelemetry-java-instrumentation-agent/
 
 ## For fun
 
