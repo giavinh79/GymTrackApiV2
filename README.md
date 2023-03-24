@@ -44,6 +44,8 @@ network. User credentials can be found in `docker-compose.yml`.
 
 **API**
 
+Need to look into handling secrets via AWS Secrets Manager for production deployments i.e. [1](https://medium.com/javarevisited/spring-boot-externalized-database-configuration-with-aws-secrets-manager-605f5ea3006a), [2](https://dzone.com/articles/integrating-aws-secrets-manager-with-spring-boot)
+
 - The API will run locally at: http://localhost:8080/
     - Build the project with Maven and run it locally in your favourite IDE
     - Make sure to set environment variable `GOOGLE_APPLICATION_CREDENTIALS` in your run configuration pointing to the
