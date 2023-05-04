@@ -44,7 +44,7 @@ network. User credentials can be found in `docker-compose.yml`.
 
 **API**
 
-- The API will run locally at: http://localhost:8080/
+- The API will run locally at: http://localhost:3030/
     - Build the project with Maven and run it locally in your favourite IDE
     - Make sure to set environment variable `GOOGLE_APPLICATION_CREDENTIALS` in your run configuration pointing to the
       Firebase Private Key file

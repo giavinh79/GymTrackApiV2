@@ -1,16 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="GymTrack" type="SpringBootApplicationConfigurationType"
-                   factoryName="Spring Boot">
-        <module name="gymtrack-api-v2"/>
-        <option name="SPRING_BOOT_MAIN_CLASS" value="com.gymtrack.api.GymTrackApplication"/>
-        <option name="ALTERNATIVE_JRE_PATH"/>
-        <option name="SHORTEN_COMMAND_LINE" value="NONE"/>
-        <envs>
-            <env name="GOOGLE_APPLICATION_CREDENTIALS"
-                 value="C:\Users\Giavinh\Documents\Projects\gymtrack-e6a77-firebase-adminsdk-h0arx-ab393607a2.json"/>
-        </envs>
-        <method v="2">
-            <option name="Make" enabled="true"/>
-        </method>
-    </configuration>
+  <configuration default="false" name="GymTrack" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="GOOGLE_APPLICATION_CREDENTIALS" value="C:\Projects\firebase-admin-sdk.json" />
+    </envs>
+    <module name="gymtrack" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.gymtrack.api.GymTrackApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
 </component>
