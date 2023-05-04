@@ -218,7 +218,7 @@ CREATE TABLE routine_exercise
     exercise_id    int NOT NULL,
     day            day_enum     DEFAULT 'MONDAY',
     exercise_order int NOT NULL DEFAULT 1,
-    UNIQUE (routine_id, exercise_id),
+    UNIQUE (routine_id, exercise_id, day),
     FOREIGN KEY (routine_id) REFERENCES routine (id) ON DELETE CASCADE,
     FOREIGN KEY (exercise_id) REFERENCES exercise (id) ON DELETE CASCADE
 );
