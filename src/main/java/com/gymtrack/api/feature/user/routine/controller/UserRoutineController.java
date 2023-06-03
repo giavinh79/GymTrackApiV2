@@ -33,6 +33,7 @@ public class UserRoutineController {
     public List<UserRoutineResponseDTO> getUsersRoutines(@PathVariable Integer userId,
                                                          @RequestAttribute(value = "userContext") UserContext userContext) {
         accessControlService.validateAccessToUser(userContext, userId);
+        // @TODO - add query param to choose between an 'expanded' vs 'minimized' view of the routines
         return userRoutineService.getUsersRoutinesById(UserContextMapper.INSTANCE.userContextToUser(userContext));
     }
 

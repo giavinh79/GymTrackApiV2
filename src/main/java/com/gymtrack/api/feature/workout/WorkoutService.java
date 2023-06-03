@@ -40,6 +40,8 @@ public class WorkoutService {
             }
 
             RoutineExerciseResponseDTO routineExerciseResponseDTO = RoutineExerciseMapper.INSTANCE.exerciseToRoutineExerciseResponseDTO(exercise);
+            routineExerciseResponseDTO.setId(routineExercise.getId());
+            routineExerciseResponseDTO.setExerciseId(exercise.getId());
             routineExerciseResponseDTO.setSets(routineExercise.getSets().stream().map(SetMapper.INSTANCE::setToSetResponseDTO).toList());
             routineExerciseResponseDTO.setExerciseOrder(routineExercise.getExerciseOrder());
 

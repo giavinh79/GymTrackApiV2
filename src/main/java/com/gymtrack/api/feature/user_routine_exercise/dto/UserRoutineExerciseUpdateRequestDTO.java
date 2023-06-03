@@ -5,10 +5,9 @@ import com.gymtrack.api.feature.set.dto.SetRequestDTO;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public record UserRoutineExerciseRequestDTO(Integer id, @NotNull Day day, @NotNull @Min(1) Integer exerciseOrder,
-                                            @NotEmpty List<@Valid SetRequestDTO> sets) {
+public record UserRoutineExerciseUpdateRequestDTO(@NotNull Integer id, @NotNull Day day, @Min(1) Integer exerciseOrder,
+                                                  List<@Valid SetRequestDTO> sets) {
 }

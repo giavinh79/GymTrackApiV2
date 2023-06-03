@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 public class RoutineExerciseResponseDTO {
     Integer id;
+    Integer exerciseId;
     Integer exerciseOrder;
     String name;
     String description;

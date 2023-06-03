@@ -21,6 +21,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: admin
     password: admin
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
   jpa:
     database-platform: org.hibernate.diaclect.PostgreSQLDialect
     properties:
