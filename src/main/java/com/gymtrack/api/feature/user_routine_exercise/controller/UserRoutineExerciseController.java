@@ -3,7 +3,8 @@ package com.gymtrack.api.feature.user_routine_exercise.controller;
 import com.gymtrack.api.acl.AccessControlService;
 import com.gymtrack.api.context.UserContext;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
-import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseRequestDTO;
+import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseCreateRequestDTO;
+import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseDeleteRequestDTO;
 import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseUpdateRequestDTO;
 import com.gymtrack.api.feature.user_routine_exercise.service.UserRoutineExerciseServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +24,15 @@ public class UserRoutineExerciseController {
     private final AccessControlService accessControlService;
 
     @PutMapping("/{userId}/routine/{routineId}/exercise/{exerciseId}")
-    public RoutineExercise createUserRoutineExercise(@PathVariable Integer userId, @PathVariable Integer routineId, @PathVariable Integer exerciseId, @Valid @RequestBody UserRoutineExerciseRequestDTO userRoutineExerciseRequestDTO, @RequestAttribute(value = "userContext") UserContext userContext) {
+    public RoutineExercise createUserRoutineExercise(@PathVariable Integer userId, @PathVariable Integer routineId, @PathVariable Integer exerciseId, @Valid @RequestBody UserRoutineExerciseCreateRequestDTO userRoutineExerciseCreateRequestDTO, @RequestAttribute(value = "userContext") UserContext userContext) {
         accessControlService.validateAccessToRoutine(userContext, userId, routineId);
-        return userRoutineExerciseServiceImpl.createUserRoutineExercise(userId, routineId, exerciseId, userRoutineExerciseRequestDTO);
+        return userRoutineExerciseServiceImpl.createUserRoutineExercise(userId, routineId, exerciseId, userRoutineExerciseCreateRequestDTO);
     }
 
     @DeleteMapping("/{userId}/routine/{routineId}/exercise/{exerciseId}")
-    public int deleteUserRoutineExercise(@PathVariable Integer userId, @PathVariable Integer routineId, @PathVariable Integer exerciseId, @RequestAttribute(value = "userContext") UserContext userContext) {
+    public int deleteUserRoutineExercise(@PathVariable Integer userId, @PathVariable Integer routineId, @PathVariable Integer exerciseId, @Valid @RequestBody UserRoutineExerciseDeleteRequestDTO userRoutineExerciseDeleteRequestDTO, @RequestAttribute(value = "userContext") UserContext userContext) {
         accessControlService.validateAccessToRoutine(userContext, userId, routineId);
-        return userRoutineExerciseServiceImpl.deleteRoutineExercise(routineId, exerciseId);
+        return userRoutineExerciseServiceImpl.deleteRoutineExercise(routineId, exerciseId, userRoutineExerciseDeleteRequestDTO);
     }
 
     @PostMapping("/{userId}/routine/{routineId}/exercise/{exerciseId}")

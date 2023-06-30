@@ -10,7 +10,8 @@ import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
 import com.gymtrack.api.feature.routine_exercise.repository.RoutineExerciseRepository;
 import com.gymtrack.api.feature.set.model.Set;
 import com.gymtrack.api.feature.set.service.SetServiceImpl;
-import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseRequestDTO;
+import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseCreateRequestDTO;
+import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseDeleteRequestDTO;
 import com.gymtrack.api.feature.user_routine_exercise.dto.UserRoutineExerciseUpdateRequestDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,20 +33,20 @@ public class UserRoutineExerciseServiceImpl implements UserRoutineExerciseServic
     private final SetServiceImpl setServiceImpl;
 
     @Transactional
-    public RoutineExercise createUserRoutineExercise(Integer userId, Integer routineId, Integer exerciseId, UserRoutineExerciseRequestDTO userRoutineExerciseRequestDTO) {
+    public RoutineExercise createUserRoutineExercise(Integer userId, Integer routineId, Integer exerciseId, UserRoutineExerciseCreateRequestDTO userRoutineExerciseCreateRequestDTO) {
         Routine routine = routineRepository.findById(routineId).orElseThrow(NotFoundException::new);
         Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow(NotFoundException::new);
 
-        List<Set> sets = setServiceImpl.createSets(userRoutineExerciseRequestDTO.sets(), exercise.getExerciseValueType());
+        List<Set> sets = setServiceImpl.createSets(userRoutineExerciseCreateRequestDTO.sets(), exercise.getExerciseValueType());
 
-        Integer exerciseOrder = Objects.requireNonNullElse(userRoutineExerciseRequestDTO.exerciseOrder(), routineExerciseRepository.findAllByRoutineId(routineId).size() + 1);
+        Integer exerciseOrder = Objects.requireNonNullElse(userRoutineExerciseCreateRequestDTO.exerciseOrder(), routineExerciseRepository.findAllByRoutineId(routineId).size() + 1);
 
         // save to routine_exercise table, id, routine_id, exercise_id, day, exercise_order
         RoutineExercise routineExercise = RoutineExercise
                 .builder()
                 .routine(routine)
                 .exercise(exercise)
-                .day(userRoutineExerciseRequestDTO.day())
+                .day(userRoutineExerciseCreateRequestDTO.day())
                 .exerciseOrder(exerciseOrder)
                 .sets(sets)
                 .build();
@@ -54,10 +55,14 @@ public class UserRoutineExerciseServiceImpl implements UserRoutineExerciseServic
     }
 
     @Transactional
-    public int deleteRoutineExercise(Integer routineId, Integer exerciseId) {
+    public int deleteRoutineExercise(Integer routineId, Integer exerciseId, UserRoutineExerciseDeleteRequestDTO userRoutineExerciseDeleteRequestDTO) {
         Routine routine = routineRepository.findById(routineId).orElseThrow(NotFoundException::new);
         Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow(NotFoundException::new);
-        RoutineExercise routineExercise = routineExerciseRepository.findByRoutineEqualsAndExerciseEquals(routine, exercise).orElseThrow(NotFoundException::new);
+        Day day = userRoutineExerciseDeleteRequestDTO.day();
+
+        RoutineExercise routineExercise = routineExerciseRepository
+                .findByRoutineEqualsAndExerciseEqualsAndDayEquals(routine, exercise, day)
+                .orElseThrow(NotFoundException::new);
 
         routineExerciseRepository.delete(routineExercise);
         return routineExercise.getId();
@@ -67,7 +72,11 @@ public class UserRoutineExerciseServiceImpl implements UserRoutineExerciseServic
     public RoutineExercise updateUserRoutineExercise(Integer userId, Integer routineId, Integer exerciseId, UserRoutineExerciseUpdateRequestDTO userRoutineExercisesUpdateRequestDTO) {
         Routine routine = routineRepository.findById(routineId).orElseThrow(NotFoundException::new);
         Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow(NotFoundException::new);
-        RoutineExercise routineExercise = routineExerciseRepository.findByRoutineEqualsAndExerciseEquals(routine, exercise).orElseThrow(NotFoundException::new);
+        Day day = userRoutineExercisesUpdateRequestDTO.day();
+
+        RoutineExercise routineExercise = routineExerciseRepository
+                .findByRoutineEqualsAndExerciseEqualsAndDayEquals(routine, exercise, day)
+                .orElseThrow(NotFoundException::new);
 
         if (userRoutineExercisesUpdateRequestDTO.day() != null) {
             routineExercise.setDay(userRoutineExercisesUpdateRequestDTO.day());

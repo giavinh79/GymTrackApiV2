@@ -1,6 +1,6 @@
 package com.gymtrack.api.feature.user_routine_exercise_set.service;
 
-import com.gymtrack.api.exception.BadRequestException;
+import com.gymtrack.api.enums.Day;
 import com.gymtrack.api.exception.NotFoundException;
 import com.gymtrack.api.feature.exercise.model.Exercise;
 import com.gymtrack.api.feature.exercise.repository.ExerciseRepository;
@@ -26,18 +26,18 @@ public class UserRoutineExerciseSetServiceImpl {
     private final ExerciseRepository exerciseRepository;
     private final SetRepository setRepository;
 
-    private RoutineExercise getRoutineExercise(Integer routineId, Integer exerciseId) {
+    private RoutineExercise getRoutineExercise(Integer routineId, Integer exerciseId, Day day) {
         Routine routine = routineRepository.findById(routineId).orElseThrow(NotFoundException::new);
         Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow(NotFoundException::new);
 
         return routineExerciseRepository
-                .findByRoutineEqualsAndExerciseEquals(routine, exercise)
+                .findByRoutineEqualsAndExerciseEqualsAndDayEquals(routine, exercise, day)
                 .orElseThrow(() -> new NotFoundException("RoutineExercise could not be found"));
     }
 
     @Transactional
-    public Set createUserRoutineExerciseSet(Integer routineId, Integer exerciseId, SetRequestDTO setRequestDTO) {
-        RoutineExercise routineExercise = getRoutineExercise(routineId, exerciseId);
+    public Set createUserRoutineExerciseSet(Integer routineId, Integer exerciseId, Day day, SetRequestDTO setRequestDTO) {
+        RoutineExercise routineExercise = getRoutineExercise(routineId, exerciseId, day);
 
         Set newSet = setRepository.save(SetMapper.INSTANCE.setRequestDTOToSet(setRequestDTO));
 
@@ -49,19 +49,12 @@ public class UserRoutineExerciseSetServiceImpl {
         return newSet;
     }
 
-    public Set updateUserRoutineExerciseSet(Integer routineId, Integer exerciseId, Integer setId, Set setToUpdate) {
-        RoutineExercise routineExercise = getRoutineExercise(routineId, exerciseId);
-        boolean setExistsInRoutine = routineExercise.getSets().stream().anyMatch(set -> set.getId().equals(setId));
+    public Set updateUserRoutineExerciseSet(Integer routineId, Integer exerciseId, Day day, Set setToUpdate) {
+        RoutineExercise routineExercise = getRoutineExercise(routineId, exerciseId, day);
+        boolean setExistsInRoutine = routineExercise.getSets().stream().anyMatch(set -> set.getId().equals(setToUpdate.getId()));
 
         if (!setExistsInRoutine) {
             throw new NotFoundException();
-        }
-
-        if (setToUpdate.getId() != null && setToUpdate.getId().equals(setId)) {
-            throw new BadRequestException();
-        } else {
-            // just in case, to also ensure we do an update instead of creating a new entity
-            setToUpdate.setId(setId);
         }
 
         return setRepository.save(setToUpdate);

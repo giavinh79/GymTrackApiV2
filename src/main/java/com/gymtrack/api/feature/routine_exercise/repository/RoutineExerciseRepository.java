@@ -1,5 +1,6 @@
 package com.gymtrack.api.feature.routine_exercise.repository;
 
+import com.gymtrack.api.enums.Day;
 import com.gymtrack.api.feature.exercise.model.Exercise;
 import com.gymtrack.api.feature.routine.model.Routine;
 import com.gymtrack.api.feature.routine_exercise.model.RoutineExercise;
@@ -13,5 +14,5 @@ import java.util.Optional;
 public interface RoutineExerciseRepository extends CrudRepository<RoutineExercise, Integer> {
     List<RoutineExercise> findAllByRoutineId(Integer routineId);
 
-    Optional<RoutineExercise> findByRoutineEqualsAndExerciseEquals(Routine routine, Exercise exercise);
+    Optional<RoutineExercise> findByRoutineEqualsAndExerciseEqualsAndDayEquals(Routine routine, Exercise exercise, Day day);
 }

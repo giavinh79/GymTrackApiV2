@@ -9,6 +9,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public record UserRoutineExerciseRequestDTO(Integer id, @NotNull Day day, @NotNull @Min(1) Integer exerciseOrder,
-                                            @NotEmpty List<@Valid SetRequestDTO> sets) {
+public record UserRoutineExerciseCreateRequestDTO(Integer id, @NotNull Day day, @NotNull @Min(1) Integer exerciseOrder,
+                                                  @NotEmpty List<@Valid SetRequestDTO> sets) {
 }
