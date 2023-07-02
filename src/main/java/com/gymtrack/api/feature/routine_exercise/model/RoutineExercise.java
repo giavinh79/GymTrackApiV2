@@ -44,7 +44,7 @@ public class RoutineExercise {
     private List<Set> sets = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 9)
+    @Column(columnDefinition = "day", length = 9)
     private Day day;
 
     @Override

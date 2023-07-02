@@ -1,14 +1,15 @@
 -- Create functions for db triggers
 CREATE
-OR REPLACE FUNCTION trigger_update_timestamp()
-RETURNS TRIGGER AS $$
+    OR REPLACE FUNCTION trigger_update_timestamp()
+    RETURNS TRIGGER AS
+$$
 BEGIN
     NEW.updated_at
-= now(); -- now() is equivalent to CURRENT_TIMESTAMP
-RETURN NEW;
+        = now(); -- now() is equivalent to CURRENT_TIMESTAMP
+    RETURN NEW;
 END;
 $$
-language 'plpgsql';
+    language 'plpgsql';
 
 -- Create location table
 CREATE TABLE location
@@ -54,7 +55,7 @@ CREATE TRIGGER set_user_updated_timestamp
     BEFORE UPDATE
     ON app_user
     FOR EACH ROW
-    EXECUTE PROCEDURE trigger_update_timestamp();
+EXECUTE PROCEDURE trigger_update_timestamp();
 
 -- Create settings tables
 CREATE TABLE setting
@@ -211,6 +212,26 @@ CREATE TABLE exercise_muscle
 
 CREATE TYPE day_enum AS ENUM ('MONDAY', 'TUESDAY','WEDNESDAY','THURSDAY','FRIDAY', 'SATURDAY', 'SUNDAY');
 CREATE CAST (CHARACTER VARYING as day_enum) WITH INOUT AS IMPLICIT;
+CREATE OR REPLACE FUNCTION enum_eq(
+    day_enum,
+    varchar)
+    RETURNS boolean AS
+$q$
+SELECT texteq($1::text, $2)
+$q$
+    LANGUAGE SQL IMMUTABLE
+                 STRICT
+                 COST 1;
+CREATE OPERATOR = (
+    PROCEDURE = enum_eq,
+    LEFTARG = day_enum,
+    RIGHTARG = varchar,
+    COMMUTATOR = =,
+    NEGATOR = <>,
+    RESTRICT = eqsel,
+    JOIN = eqjoinsel
+    );
+
 CREATE TABLE routine_exercise
 (
     id             SERIAL PRIMARY KEY,
