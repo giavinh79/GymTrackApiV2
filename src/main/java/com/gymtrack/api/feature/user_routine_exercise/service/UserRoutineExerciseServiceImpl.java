@@ -69,7 +69,7 @@ public class UserRoutineExerciseServiceImpl implements UserRoutineExerciseServic
     }
 
     @Transactional
-    public RoutineExercise updateUserRoutineExercise(Integer userId, Integer routineId, Integer exerciseId, UserRoutineExerciseUpdateRequestDTO userRoutineExercisesUpdateRequestDTO) {
+    public RoutineExercise updateUserRoutineExercise(Integer routineId, Integer exerciseId, UserRoutineExerciseUpdateRequestDTO userRoutineExercisesUpdateRequestDTO) {
         Routine routine = routineRepository.findById(routineId).orElseThrow(NotFoundException::new);
         Exercise exercise = exerciseRepository.findById(exerciseId).orElseThrow(NotFoundException::new);
         Day day = userRoutineExercisesUpdateRequestDTO.day();

@@ -38,7 +38,7 @@ public class UserRoutineExerciseController {
     @PostMapping("/{userId}/routine/{routineId}/exercise/{exerciseId}")
     public RoutineExercise updateUserRoutineExercise(@PathVariable Integer userId, @PathVariable Integer routineId, @PathVariable Integer exerciseId, @Valid @RequestBody UserRoutineExerciseUpdateRequestDTO userRoutineExercisesUpdateRequestDTO, @RequestAttribute(value = "userContext") UserContext userContext) {
         accessControlService.validateAccessToRoutine(userContext, userId, routineId);
-        return userRoutineExerciseServiceImpl.updateUserRoutineExercise(userId, routineId, exerciseId, userRoutineExercisesUpdateRequestDTO);
+        return userRoutineExerciseServiceImpl.updateUserRoutineExercise(routineId, exerciseId, userRoutineExercisesUpdateRequestDTO);
     }
 
     @PostMapping("/{userId}/routine/{routineId}/exercise")

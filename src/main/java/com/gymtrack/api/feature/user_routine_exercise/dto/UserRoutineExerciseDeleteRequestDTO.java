@@ -4,5 +4,5 @@ import com.gymtrack.api.enums.Day;
 
 import javax.validation.constraints.NotNull;
 
-public record UserRoutineExerciseDeleteRequestDTO(Integer id, @NotNull Day day) {
+public record UserRoutineExerciseDeleteRequestDTO(@NotNull Day day) {
 }
